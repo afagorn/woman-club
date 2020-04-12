@@ -34,6 +34,11 @@ class Product extends Model
 
     protected $fillable = ['slug', 'name', 'description', 'cost'];
 
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return Product::where(['slug' => $value])->first();
+    }
+
     public static function new(string $name, string $description, int $cost, string $slug = null): self {
         $product = static::create([
             'name' => $name,

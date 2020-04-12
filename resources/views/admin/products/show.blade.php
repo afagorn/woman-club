@@ -4,44 +4,60 @@ use App\Models\Product;
  * @var Product $product
  */
 ?>
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'home', 'title' => __('Material Dashboard')])
+@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'products', 'titlePage' => __('Просмотр продукта')])
 @section('content')
+<div class="content">
 <div class="container">
-    <h1>Продукт {{$product->name}}}</h1>
+@if (session('status'))
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('status') }}</span>
+            </div>
+        </div>
+    </div>
+@endif
+    <div class="card">
+        <div class="card-header"><h2>Продукт {{$product->name}}</h2></div>
+        <div class="card-body">
+            <ul class="list list_clear list-description">
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Алиас</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->slug}}</span>
+                </li>
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Имя</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->name}}</span>
+                </li>
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Описание</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->description}}</span>
+                </li>
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Стоимость</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->cost}}</span>
+                </li>
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Создан</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->created_at}}</span>
+                </li>
+                <li class="list__item list-description__item">
+                    <span class="list-description__unit list-description__unit_key">Обновлен</span>
+                    <span class="list-description__unit list-description__unit_value">{{$product->updated_at}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer" style="justify-content: flex-start">
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Алиас</th>
-                <th>Имя</th>
-                <th>Описание</th>
-                <th>Стоимость</th>
-                <th>Создан</th>
-                <th>Обновлен</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $product)
-                <tr>
-                    <td>{{$product->id}}</td>
-                    <td>{{$product->slug}}</td>
-                    <td>{{$product->name}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>{{$product->cost}}</td>
-                    <td>{{$product->created_at}}</td>
-                    <td>{{$product->updated_at}}</td>
-                    <td>
-                        <div class="dropdown  btn-group">
-                            <div class="btn dropdown-toggle btn-info">
-                                <i class="icon-sett"
-                            </div>
-                        </div> {{}}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+            <a class="btn btn-info" href="{{route('admin.products.index')}}">Вернуться к списку продуктов</a>
+            <a class="btn btn-success" style="margin: 0 5px" href="{{route('admin.products.edit', $product->slug)}}">Редактировать</a>
+            <a class="btn btn-danger" href="{{route('admin.products.destroy', $product->slug)}}">Удалить</a>
 
+        </div>
+    </div>
+</div>
 </div>
 @endsection

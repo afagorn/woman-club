@@ -1,3 +1,24 @@
-function confirmDelete() {
-    return confirm("Are you sure you want to delete?");
-}
+$('.js-confirm-delete').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    Swal.fire({
+        title: 'Вы уверены?',
+        //text: "Удалить продукт?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Удалить',
+        cancelButtonText: 'Отменить'
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = url;
+            /*Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )*/
+        }
+    })
+});
+

@@ -5,7 +5,7 @@ use App\Models\Product;
  */
 ?>
 
-@extends('layouts.app', ['activePage' => 'products', 'titlePage' => 'Просмотр продуктов'])
+@extends('layouts.app', ['activePage' => 'productsList', 'titlePage' => 'Просмотр продуктов'])
 
 @section('content')
 {{--
@@ -51,13 +51,13 @@ use App\Models\Product;
                                     <td>{{$product->created_at}}</td>
                                     <td>{{$product->updated_at}}</td>
                                     <td class="td-actions text-right">
-                                        <a href="{{route('admin.products.show', $product->id)}}" type="button" rel="tooltip" class="btn btn-info" data-original-title="Посмотреть" title="Посмотреть">
+                                        <a href="{{route('admin.products.show', $product->slug)}}" type="button" rel="tooltip" class="btn btn-info" data-original-title="Посмотреть" title="Посмотреть">
                                             <i class="material-icons">visibility</i>
                                         </a>
-                                        <a href="{{route('admin.products.edit', $product->id)}}" type="button" rel="tooltip" class="btn btn-success" data-original-title="Редактировать" title="Редактировать">
+                                        <a href="{{route('admin.products.edit', $product->slug)}}" type="button" rel="tooltip" class="btn btn-success" data-original-title="Редактировать" title="Редактировать">
                                             <i class="material-icons">edit</i>
                                         </a>
-                                        <a href="{{route('admin.products.destroy', $product->id)}}" rel="tooltip" class="btn btn-danger" data-original-title="Удалить" title="Удалить" onclick="return confirmDelete()">
+                                        <a href="{{route('admin.products.destroy', $product->slug)}}" rel="tooltip" class="btn btn-danger js-confirm-delete" data-original-title="Удалить" title="Удалить" {{--onclick="return confirmDelete(event)"--}}>
                                             <i class="material-icons">close</i>
                                         </a>
                                     </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\CreateRequest;
+use App\Http\Requests\Admin\Products\EditRequest;
 use App\Models\Product;
 use App\Services\Products\ProductService;
 use Illuminate\Http\Request;
@@ -41,38 +42,22 @@ class ProductController extends Controller
         return redirect(route('admin.products.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function show(Product $product)
     {
-
+        return view('admin.products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
+    public function update(EditRequest $request, Product $product)
     {
-        //
+        if($this->service->edit($product, $request))
+            $request->session()->flash('status', 'Продукт успешно сохранен');
+
+        return redirect(route('admin.products.show', $product->slug));
     }
 
     /**

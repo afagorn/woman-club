@@ -2,6 +2,7 @@
 namespace App\Services\Products;
 
 use App\Http\Requests\Admin\Products\CreateRequest;
+use App\Http\Requests\Admin\Products\EditRequest;
 use App\Models\Product;
 
 class ProductService
@@ -14,5 +15,10 @@ class ProductService
             $request['cost'],
             $request['slug']
         );
+    }
+
+    public function edit(Product $product, EditRequest $request)
+    {
+        return $product->update($request->validated());
     }
 }

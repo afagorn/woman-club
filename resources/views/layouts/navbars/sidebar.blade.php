@@ -48,7 +48,7 @@
           </a>
           <div class="collapse show" id="sidebarProducts">
               <ul class="nav">
-                  <li class="nav-item {{$activePage == 'products' ? 'active' : ''}}">
+                  <li class="nav-item {{$activePage == 'productsList' ? 'active' : ''}}">
                       <a class="nav-link" href="{{route('admin.products.index')}}">
                           <i class="material-icons">visibility</i>
                           <span class="sidebar-normal">Посмотреть все</span>
