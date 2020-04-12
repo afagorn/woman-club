@@ -34,12 +34,12 @@ class ProductController extends Controller
     {
         try {
             $product = $this->service->create($request);
+            $request->session()->flash('status', 'Продукт успешно создан');
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
 
-        //return redirect(route('admin.product.show', $product));
-        return redirect(route('admin.products.index'));
+        return redirect(route('admin.products.show', $product->slug));
     }
 
     public function show(Product $product)
@@ -61,13 +61,20 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
-        //
+        try {
+            $product->delete();
+            $request->session()->flash('status', 'Продукт успешно удален');
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect(route('admin.products.index'));
     }
 }

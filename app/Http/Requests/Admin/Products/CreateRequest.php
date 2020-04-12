@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Requests\Admin\Products;
 
+use App\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -10,6 +11,8 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:2048',
+            'cost' => 'required|integer',
+            'slug' => ['unique:products,slug', new Slug()]
         ];
     }
 }

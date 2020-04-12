@@ -15,14 +15,4 @@ class EditRequest extends FormRequest
             'slug' => ['required', 'unique:products,slug,'. $this->product->id, new Slug()]
         ];
     }
-
-    /*public function attributes()
-    {
-        return [
-            'slug' => 'Алиас',
-            'cost' => 'Стоимость',
-            'name' => 'Название',
-            'description' => 'Описание'
-        ];
-    }*/
 }

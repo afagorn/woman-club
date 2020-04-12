@@ -1,6 +1,6 @@
 $('.js-confirm-delete').on('click', function (event) {
     event.preventDefault();
-    const url = $(this).attr('href');
+    //const url = $(this).attr('href');
     Swal.fire({
         title: 'Вы уверены?',
         //text: "Удалить продукт?",
@@ -12,7 +12,8 @@ $('.js-confirm-delete').on('click', function (event) {
         cancelButtonText: 'Отменить'
     }).then((result) => {
         if (result.value) {
-            window.location.href = url;
+            $(this).closest('form').submit();
+            //window.location.href = url;
             /*Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',

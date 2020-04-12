@@ -22,6 +22,20 @@ use App\Models\Product;
 </div>
 --}}
 <div class="content">
+    <div class="container">
+    @if (session('status'))
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span>{{ session('status') }}</span>
+                </div>
+            </div>
+        </div>
+    @endif
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -57,9 +71,11 @@ use App\Models\Product;
                                         <a href="{{route('admin.products.edit', $product->slug)}}" type="button" rel="tooltip" class="btn btn-success" data-original-title="Редактировать" title="Редактировать">
                                             <i class="material-icons">edit</i>
                                         </a>
-                                        <a href="{{route('admin.products.destroy', $product->slug)}}" rel="tooltip" class="btn btn-danger js-confirm-delete" data-original-title="Удалить" title="Удалить" {{--onclick="return confirmDelete(event)"--}}>
-                                            <i class="material-icons">close</i>
-                                        </a>
+                                        <form action="{{route('admin.products.destroy', $product->slug)}}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button rel="tooltip" type="submit" class="btn btn-danger js-confirm-delete" data-original-title="Удалить" title="Удалить"><i class="material-icons">close</i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

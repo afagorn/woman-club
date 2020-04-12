@@ -54,8 +54,8 @@
                           <span class="sidebar-normal">Посмотреть все</span>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link">
+                  <li class="nav-item {{$activePage == 'productsCreate' ? 'active' : ''}}">
+                      <a class="nav-link" href="{{route('admin.products.create')}}">
                           <i class="material-icons">add_circle</i>
                           <span class="sidebar-normal">Создать новый</span>
                       </a>
