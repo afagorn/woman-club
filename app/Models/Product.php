@@ -49,4 +49,10 @@ class Product extends Model
 
         return $product;
     }
+
+    public static function isEqualCost(int $productId, int $cost)
+    {
+        $product = self::findOrFail($productId);
+        return $product->cost === $cost;
+    }
 }

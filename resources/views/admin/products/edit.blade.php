@@ -15,8 +15,8 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">{{ __('Обновление продукта') }}</h4>
-                        <p class="card-category">{{ __('User information') }}</p>
+                        <h4 class="card-title">Редактирование продукта</h4>
+                        <p class="card-category">{{$product->name}}</p>
                     </div>
 
                     <div class="card-body ">

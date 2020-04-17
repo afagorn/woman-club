@@ -1,0 +1,41 @@
+/*
+Material fix
+ */
+/* Form labels */
+.bmd-form-group [class^='bmd-label'], .bmd-form-group [class*=' bmd-label'] {
+    position: unset;
+}
+
+
+.list {
+
+}
+.list_clear {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.list-description {
+
+}
+.list-description__item {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+.list-description__item:last-child {
+    margin-bottom: 0;
+}
+.list-description__unit {
+
+}
+.list-description__unit_key {
+    font-weight: 500;
+    display: inline-block;
+    width: 135px;
+    font-size: 16px;
+}
+.list-description__unit_value {
+
+}

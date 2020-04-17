@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Order
  *
  * @property int $id
- * @property int|null $product_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $customer_id
+ * @property int $tg_invite_link_id
+ * @property string $status
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
@@ -22,5 +24,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
-    //
+    const STATUS_PAID = 'paid';
+    const STATUS_NOT_PAID = 'not paid';
+
+    public static function new(int $customerId, string $tgInviteLinkId, string $status): self
+    {
+        return static::create([
+            'customer_id' => $customerId,
+            'tg_invite_link_id' => $tgInviteLinkId,
+            'status' => $status
+        ]);
+    }
+
+
 }

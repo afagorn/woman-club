@@ -21,7 +21,10 @@ use App\Models\Product;
     </div>
 @endif
     <div class="card">
-        <div class="card-header"><h2>Продукт {{$product->name}}</h2></div>
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">Просмотр продукта</h4>
+            <div class="card-category">{{$product->name}}</div>
+        </div>
         <div class="card-body">
             <ul class="list list_clear list-description">
                 <li class="list__item list-description__item">

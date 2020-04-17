@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="cost" class="col-form-label">{{__('validation.attributes.cost')}}</label>
-                            <input id="cost" type="text" class="form-control" name="cost" placeholder="Целое положительное число" value="{{old('cost')}}">
+                            <input id="cost" type="text" class="form-control" name="cost" placeholder="Целое число" value="{{old('cost')}}">
                             @if($errors->has('cost'))<span class="error text-danger">{{$errors->first('cost')}}</span>@endif
                         </div>
 
