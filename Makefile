@@ -19,7 +19,9 @@ docker-build:
 	docker-compose build
 
 docker-php:
-	docker exec -it php-fpm php $(args)
+	docker-compose exec php-fpm php $(args)
+docker-node:
+	docker-compose exec node $(args)
 
 docker-stop-all:
 	docker stop $(docker ps -a -q)
