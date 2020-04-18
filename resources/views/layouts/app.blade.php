@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
-    <link href="{{mix('backend/css/app.backend.css', 'build')}}" rel="stylesheet" />
+    <link href="{{mix('css/app.admin.css', 'build')}}" rel="stylesheet" />
 </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -27,6 +27,6 @@
             {{--@include('layouts.page_templates.guest')--}}
         @endguest
 
-        <script src="{{mix('backend/js/app.backend.js', 'build')}}"></script>
+        <script src="{{mix('js/app.admin.js', 'build')}}"></script>
     </body>
 </html>

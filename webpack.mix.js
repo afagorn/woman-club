@@ -14,10 +14,10 @@ const mix = require('laravel-mix');
 mix
     .setPublicPath('public/build')
     .setResourceRoot('build')
-    .js('resources/assets/backend/js/app.backend.js', 'backend/js')
-    .js('resources/assets/frontend/js/app.frontend.js', 'frontend/js')
-    .sass('resources/assets/backend/sass/app.backend.scss', 'backend/css')
-    .sass('resources/assets/frontend/sass/app.frontend.scss', 'frontend/css')
+    .js('resources/assets/admin/js/app.admin.js', 'js')
+    .js('resources/assets/site/js/app.site.js', 'js')
+    .sass('resources/assets/admin/sass/app.admin.scss', 'css')
+    .sass('resources/assets/site/sass/app.site.scss', 'css')
     .version()
     .browserSync('192.168.99.100:8080')
     .disableSuccessNotifications();
