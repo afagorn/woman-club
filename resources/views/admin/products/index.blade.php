@@ -12,34 +12,6 @@ use App\Models\Product;
 ])
 
 @section('content')
-{{--
-<div class="container">
-    <div class="navbar navbar-expand-lg bg-white" style="margin-bottom: 25px">
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.products.create')}}">Создать новый продукт</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
---}}
-    {{--<div class="container">
-    @if (session('status'))
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <i class="material-icons">close</i>
-                    </button>
-                    <span>{{ session('status') }}</span>
-                </div>
-            </div>
-        </div>
-    @endif
-    </div>--}}
-
 <div class="row">
     <div class="col-md-12">
         <div class="card">

@@ -36,7 +36,7 @@ class ProductController extends Controller
     {
         try {
             $product = $this->service->create($request);
-            $request->session()->flash('status', 'Продукт успешно создан');
+            flash('Продукт успешно создан')->success();
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function update(EditRequest $request, Product $product)
     {
         if($this->service->edit($product, $request))
-            $request->session()->flash('status', 'Продукт успешно сохранен');
+            flash('Продукт успешно сохранен')->success();
 
         return redirect(route('admin.products.show', $product->slug));
     }
@@ -72,7 +72,7 @@ class ProductController extends Controller
     {
         try {
             $product->delete();
-            $request->session()->flash('status', 'Продукт успешно удален');
+            flash('Продукт успешно удален')->success();
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
