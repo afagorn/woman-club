@@ -12,8 +12,8 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
-
  @import "material-dashboard/variables";
+@import "variables";
 @import "~bootstrap-material-design/scss/bootstrap-material-design";
 @import "material-dashboard/mixins";
 //@import "material-dashboard/core-bootstrap";
@@ -57,3 +57,4 @@
 
 //custom
 @import "custom";
+

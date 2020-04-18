@@ -22,12 +22,14 @@ Route::group([
     'as' => 'admin.',
     'namespace' => 'Admin'
 ], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+
     Route::resource('products', 'ProductController');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {

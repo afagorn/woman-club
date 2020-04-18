@@ -6,9 +6,8 @@ use App\Models\Product;
 ?>
 @extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'products', 'titlePage' => __('Просмотр продукта')])
 @section('content')
-<div class="content">
-<div class="container">
-@if (session('status'))
+
+{{--@if (session('status'))
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-success">
@@ -19,7 +18,7 @@ use App\Models\Product;
             </div>
         </div>
     </div>
-@endif
+@endif--}}
     <div class="card">
         <div class="card-header card-header-primary">
             <h4 class="card-title">Просмотр продукта</h4>
@@ -61,6 +60,5 @@ use App\Models\Product;
 
         </div>
     </div>
-</div>
-</div>
+
 @endsection

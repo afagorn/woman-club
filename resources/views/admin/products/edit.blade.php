@@ -7,9 +7,7 @@
 
 @extends('layouts.app', ['activePage' => 'products', 'titlePage' => __('Редактирование продукта')])
 @section('content')
-    <div class="content">
-        <div class="container">
-            <form action="{{route('admin.products.update', $product->slug)}}" method="POST">
+    <form action="{{route('admin.products.update', $product->slug)}}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -51,6 +49,4 @@
                 </div>
 
             </form>
-        </div>
-    </div>
 @endsection
