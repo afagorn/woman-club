@@ -15,14 +15,14 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->string('tg_username');
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('tg_username')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('unsubscribe_at')->nullable();
 
             $table->foreign('user_id', 'customers-user_id-to-user-id')
                 ->references('id')
-                ->on('user')
+                ->on('users')
                 ->onDelete('CASCADE');
         });
 

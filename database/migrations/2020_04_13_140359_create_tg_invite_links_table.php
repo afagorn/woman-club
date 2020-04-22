@@ -15,7 +15,7 @@ class CreateTgInviteLinksTable extends Migration
     {
         Schema::create('tg_invite_links', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
+            $table->bigInteger('product_id')->unsigned();
             $table->string('link');
             $table->string('status');
             $table->timestamp('created_at')->nullable();
