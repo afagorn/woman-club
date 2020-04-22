@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Models\TgInviteLink
- *
+ * @property int $id
  * @property int $product_id
  * @property string $link
  * @property string $status
@@ -23,15 +23,16 @@ class TgInviteLink extends Model
     const STATUS_ACTIVATED = 'active';
     const STATUS_NOT_ACTIVATED = 'not activated';
 
-    protected $dates = [
-        'activated_at'
-    ];
+    const UPDATED_AT = null;
+    protected $dates = ['activated_at', 'created_at'];
 
-    public static function new(int $productId, string $link, string $status = self::STATUS_NOT_ACTIVATED, Carbon $activatedAt = null)
+    protected $fillable = ['product_id', 'link', 'status', 'activated_at'];
+
+    public static function new(int $productId, string $status = self::STATUS_NOT_ACTIVATED, Carbon $activatedAt = null)
     {
         return static::create([
             'product_id' => $productId,
-            'link' => $link,
+            'link' => self::createLink(),
             'status' => $status,
             'activated_at' => $activatedAt
         ]);
@@ -43,5 +44,25 @@ class TgInviteLink extends Model
             'status' => self::STATUS_ACTIVATED,
             'activated_at' => Carbon::now()
         ]);
+    }
+
+    public static function createLink(): string
+    {
+        $hash = \Str::random(32);
+        $telegramBotLink = \Config::get('telegramBot.link');
+        if(!preg_match('/\/$/', $telegramBotLink))
+            $telegramBotLink = $telegramBotLink . '/';
+
+        return $telegramBotLink . '?start=' . $hash;
+    }
+
+    /*public function order()
+    {
+        return $this->belongsTo(Order::class, 'tg_invite_link_id');
+    }*/
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

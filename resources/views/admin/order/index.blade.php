@@ -1,15 +1,12 @@
 <?php
-
-use App\Models\Product;
-
 /**
- * @var Product[] $products
+ * @var \App\Models\Order[] $orders
  */
 ?>
 
 @extends('layouts.app', [
-    'activePage' => 'productsList',
-    'titlePage' => 'Просмотр продуктов',
+    'activePage' => 'orderList',
+    'titlePage' => 'Просмотр заказов',
     'containerFluid' => true
 ])
 
@@ -22,35 +19,35 @@ use App\Models\Product;
             <thead>
             <tr>
               <th>ID</th>
-              <th>Алиас</th>
-              <th>Имя</th>
-              <th>Описание</th>
-              <th>Стоимость</th>
+              <th>Покупатель</th>
+              <th>Инвайт линк</th>
+              <th>Статус</th>
               <th>Создан</th>
               <th>Обновлен</th>
               <th>Действия</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($products as $product)
+            @foreach($orders as $order)
               <tr>
-                <td>{{$product->id}}</td>
-                <td>{{$product->slug}}</td>
-                <td>{{$product->name}}</td>
-                <td>{{$product->description}}</td>
-                <td>{{$product->cost}}</td>
-                <td>{{$product->created_at}}</td>
-                <td>{{$product->updated_at}}</td>
+                <td>{{$order->id}}</td>
+                <td>
+                  <a href="{{route('admin.customer.show', $order->customer->id)}}">{{!is_null($order->customer->user->name) ? $order->customer->user->name : 'Без имени'}}</a>
+                </td>
+                <td>{{$order->tgInviteLink->link}}</td>
+                <td>{{$order->statusToText()}}</td>
+                <td>{{$order->created_at}}</td>
+                <td>{{$order->updated_at}}</td>
                 <td class="td-actions text-right">
-                  <a href="{{route('admin.products.show', $product->slug)}}" type="button" rel="tooltip"
+                  <a href="{{route('admin.products.show', $order->id)}}" type="button" rel="tooltip"
                      class="btn btn-info" data-original-title="Посмотреть" title="Посмотреть">
                     <i class="material-icons">visibility</i>
                   </a>
-                  <a href="{{route('admin.products.edit', $product->slug)}}" type="button" rel="tooltip"
+                  <a href="{{route('admin.products.edit', $order->id)}}" type="button" rel="tooltip"
                      class="btn btn-success" data-original-title="Редактировать" title="Редактировать">
                     <i class="material-icons">edit</i>
                   </a>
-                  <form action="{{route('admin.products.destroy', $product->slug)}}" method="POST"
+                  <form action="{{route('admin.products.destroy', $order->id)}}" method="POST"
                         style="display: inline-block;">
                     @csrf
                     @method('DELETE')

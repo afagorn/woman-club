@@ -17,7 +17,7 @@ class YandexPayment extends Controller
     public function index(Request $request)
     {
         $code = 200;
-        if(!$this->service->handlePayment($request))
+        if(!$this->service->handleSuccessPayment($request))
             $code = 400;
 
         return response()->setStatusCode($code);

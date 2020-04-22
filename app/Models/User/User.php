@@ -63,12 +63,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function registerBlank(string $email)
+    public static function createBlank(string $email)
     {
         return static::create([
             'name' => null,
             'email' => $email,
             'password' => null
         ]);
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'user_id');
     }
 }

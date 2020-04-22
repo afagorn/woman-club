@@ -6,43 +6,15 @@ use App\Services\User\CustomerService;
 
 class TgInviteLinkService
 {
-    private $customerService;
-
-    public function __construct(CustomerService $customerService)
-    {
-        $this->customerService = $customerService;
-    }
-
     /**
-     * Создаем ссылку и если нужно то отправляем на email и создаем "пустого" Customer
-     *
+     * Создаем ссылку
      * @param int $productId
-     * @param string|null $email
      * @return TgInviteLink
      */
-    public function create(int $productId, string $email = null): TgInviteLink
+    public function create(int $productId): TgInviteLink
     {
-        $link = TgInviteLink::new(
-            $productId,
-            $this->createLink()
-        );
-
-        if(!is_null($email)) {
-            //TODO Отправить письмо с ссылкой!
-
-            $this->customerService->registerBlank($email);
-        }
-
-        return $link;
+        return TgInviteLink::new($productId);
     }
 
-    private function createLink(): string
-    {
-        $hash = \Str::random(32);
-        $telegramBotLink = \Config::get('telegramBot.link');
-        if(!preg_match('/\/$/', $telegramBotLink))
-            $telegramBotLink = $telegramBotLink . '/';
 
-        return $telegramBotLink . '?start=' . $hash;
-    }
 }

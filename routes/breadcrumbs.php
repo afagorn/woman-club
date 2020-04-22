@@ -2,7 +2,7 @@
 
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 //Macros
-Breadcrumbs::macro('resource', function ($name, $title, $site = 'site') {
+Breadcrumbs::macro('resource', function ($name, $title, $site = 'site', $slug = false) {
     $home = 'home';
     switch ($site) {
         case 'admin':
@@ -21,14 +21,15 @@ Breadcrumbs::macro('resource', function ($name, $title, $site = 'site') {
         $crubms->push('Создать', route($name.'.create'));
     });
 
-    Breadcrumbs::register($name.'.show', function (Crumbs $crubms, $model) use ($name, $title) {
+    Breadcrumbs::register($name.'.show', function (Crumbs $crubms, $model) use ($name, $title, $slug) {
         $crubms->parent($name.'.index');
-        $crubms->push($model->name, route($name.'.show', $model->slug));
+
+        $crubms->push((!is_null($model->name) ? $model->name : 'Без имени'), route($name.'.show', ($slug ? $model->slug : $model->id)));
     });
 
-    Breadcrumbs::register($name.'.edit', function (Crumbs $crubms, $model) use ($name, $title) {
+    Breadcrumbs::register($name.'.edit', function (Crumbs $crubms, $model) use ($name, $title, $slug) {
         $crubms->parent($name.'.show', $model);
-        $crubms->push('Редактировать', route($name.'.edit', $model->slug));
+        $crubms->push('Редактировать', route($name.'.edit', ($slug ? $model->slug : $model->id) ));
     });
 });
 
@@ -42,4 +43,6 @@ Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {
     $crumbs->push('Главная', route('admin.home'));
 });
 
-Breadcrumbs::resource('products', 'Продукты', 'admin');
+Breadcrumbs::resource('products', 'Продукты', 'admin', true);
+    Breadcrumbs::resource('order', 'Заказы', 'admin');
+Breadcrumbs::resource('customer', 'Покупатели', 'admin');

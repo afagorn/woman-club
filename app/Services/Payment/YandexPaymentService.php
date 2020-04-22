@@ -2,23 +2,26 @@
 
 namespace App\Services\Payment;
 
+use App\Models\Order;
 use App\Models\Product;
-use app\Services\TgInviteLinkService;
+use app\Services\OrderService;
 use Illuminate\Http\Request;
 
 class YandexPaymentService
 {
-    private $tgInviteLinkService;
+    private $orderService;
 
-    public function __construct(TgInviteLinkService $tgInviteLinkService)
+    public function __construct(OrderService $orderService)
     {
-        $this->tgInviteLinkService = $tgInviteLinkService;
+        $this->orderService = $orderService;
     }
 
     /**
-     * Обрабатываем платеж
+     * Обрабатываем успешный платеж
+     * @param Request $request
+     * @return bool
      */
-    public function handlePayment(Request $request)
+    public function handleSuccessPayment(Request $request): bool
     {
         $this->checkHash($request['hash']);
         $data = json_decode($request['label']);// {'productId':1}
@@ -26,13 +29,13 @@ class YandexPaymentService
         if(!Product::isEqualCost($data->productId, $request['amount']))
             return false;
 
-        $this->tgInviteLinkService->create($data->productId, $request['email']);
+        $this->orderService->checkout($data->productId, $request['email'], Order::STATUS_PAID);
 
         return true;
     }
 
     private function checkHash($hash)
     {
-
+        //TODO Реализовать проверку хеша!
     }
 }

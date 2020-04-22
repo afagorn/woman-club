@@ -2,14 +2,18 @@
 
 namespace App\Models\User;
 
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Customer
+ * @property int $id
  * @property int $user_id
  * @property string $tg_username
  * @property \Illuminate\Support\Carbon|null $unsubscribe_at
+ * @property User $user
+ * @property Order[] $orders
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer query()
@@ -17,9 +21,11 @@ use Illuminate\Support\Carbon;
  */
 class Customer extends Model
 {
-    protected $dates = [
-        'unsubscribe_at'
-    ];
+    protected $fillable = ['user_id', 'tg_username'];
+
+    protected $dates = ['unsubscribe_at'];
+
+    public $timestamps = false;
 
     public static function new(int $userId, string $tgUsername, Carbon $unsubscribeAt = null)
     {
@@ -30,7 +36,7 @@ class Customer extends Model
         ]);
     }
 
-    public static function registerBlank(int $userId)
+    public static function createBlank(int $userId)
     {
         return static::create([
             'user_id' => $userId,
@@ -41,6 +47,11 @@ class Customer extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id');
     }
 }
