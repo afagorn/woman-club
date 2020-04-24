@@ -2,9 +2,9 @@
 
 namespace App\Models\User;
 
+use App\Models\DTO\User\CustomerDTO;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Customer
@@ -27,22 +27,19 @@ class Customer extends Model
 
     public $timestamps = false;
 
-    public static function new(int $userId, string $tgUsername, Carbon $unsubscribeAt = null)
+    public static function new(CustomerDTO $DTO)
     {
-        return static::create([
-            'user_id' => $userId,
-            'tg_username' => $tgUsername,
-            'unsubscribe_at' => $unsubscribeAt
-        ]);
-    }
+        $user = User::new($DTO->userDTO);
 
-    public static function createBlank(int $userId)
-    {
-        return static::create([
-            'user_id' => $userId,
-            'tg_username' => null,
-            'unsubscribe_at' => null
+        $customer = static::create([
+            'user_id' => $user->id,
+            'tg_username' => $DTO->tgUsername,
+            'unsubscribe_at' => $DTO->unsubscribeDate
         ]);
+
+        $customer->user = $user;
+
+        return $customer;
     }
 
     public function user()

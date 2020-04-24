@@ -11,7 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     //require('bootstrap');
-    require('bootstrap-material-design');
+
     //require('summernote/dist/summernote-bs4');
 } catch (e) {}
 
@@ -55,3 +55,6 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+//theme
+require('../themes/material-dashboard/js/main');

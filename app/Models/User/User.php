@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\DTO\User\UserDTO;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -63,12 +64,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function createBlank(string $email)
+    public static function new(UserDTO $DTO)
     {
-        return static::create([
-            'name' => null,
-            'email' => $email,
-            'password' => null
+        return self::create([
+            'email' => $DTO->email,
+            'name' => $DTO->name,
+            'password' => !is_null($pass = $DTO->credentialsDTO->password) ? \Hash::make($pass) : null
         ]);
     }
 

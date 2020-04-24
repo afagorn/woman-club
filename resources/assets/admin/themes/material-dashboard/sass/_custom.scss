@@ -5,7 +5,20 @@ Material fix
 .bmd-form-group [class^='bmd-label'], .bmd-form-group [class*=' bmd-label'] {
     position: unset;
 }
-
+.bmd-form-group {
+    padding-top: 0;
+}
+/*datetimepicker fix*/
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    width: 20em;
+}
+.bootstrap-datetimepicker-widget table td span {
+    width: 45px;
+}
+/*card fix*/
+.card {
+    margin-top: 40px;
+}
 
 .list {
 
@@ -35,6 +48,7 @@ Material fix
     display: inline-block;
     width: 135px;
     font-size: 16px;
+    margin-right: 20px;
 }
 .list-description__unit_value {
 

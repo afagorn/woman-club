@@ -2,6 +2,8 @@
 
 namespace App\Services\Payment;
 
+use App\Models\DTO\User\CustomerDTO;
+use App\Models\DTO\User\UserDTO;
 use App\Models\Order;
 use App\Models\Product;
 use app\Services\OrderService;
@@ -29,7 +31,11 @@ class YandexPaymentService
         if(!Product::isEqualCost($data->productId, $request['amount']))
             return false;
 
-        $this->orderService->checkout($data->productId, $request['email'], Order::STATUS_PAID);
+        $this->orderService->checkout(
+            $data->productId,
+            new CustomerDTO(new UserDTO($request['email'])),
+            Order::STATUS_PAID
+        );
 
         return true;
     }

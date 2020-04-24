@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\CreateRequest;
+use App\Models\DTO\User\CustomerDTO;
+use App\Models\DTO\User\UserDTO;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\OrderService;
@@ -28,14 +30,22 @@ class OrderController extends Controller
     public function create()
     {
         $products = Product::all(['id','slug', 'name']);
-        //dd($products);
 
         return view('admin.order.create', compact('products'));
     }
 
     public function store(CreateRequest $request)
     {
-        $order = $this->service->checkout($request['productId'], $request['email'], $request['status']);
+        $order = $this->service->checkout(
+            $request['productId'],
+            new CustomerDTO(
+                new UserDTO(
+                    $request['email'],
+                    $request['name']
+                )
+            ),
+            $request['status']
+        );
 
         if (!$order)
             flash('Произошла ошибка при создании заказа :( Пните разработчика, чтобы он все починил')->error();

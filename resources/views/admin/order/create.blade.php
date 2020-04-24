@@ -28,6 +28,12 @@
         </div>
 
         <div class="form-group">
+          <label for="name" class="col-form-label">{{__('validation.attributes.userName')}}</label>
+          <input id="name" type="text" class="form-control" name="name" placeholder="Аполлинария" value="{{old('name')}}">
+          @if($errors->has('name'))<span class="error text-danger">{{$errors->first('name')}}</span>@endif
+        </div>
+
+        <div class="form-group">
           <label for="product">Продукт</label>
           <select class="form-control" data-style="btn btn-link" id="product" name="productId" required>
             <option disabled value="">Не выбрано</option>

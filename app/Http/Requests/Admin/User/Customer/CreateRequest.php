@@ -1,7 +1,6 @@
 <?php
-namespace App\Http\Requests\Admin\Order;
+namespace App\Http\Requests\Admin\User\Customer;
 
-use App\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -11,8 +10,10 @@ class CreateRequest extends FormRequest
         return [
             'email' => 'string|max:64',
             'name' => 'string|max:64',
-            'productId' => 'required|integer',
-            'status' => 'required|string|max:32',
+            'password' => 'nullable|string|max:32',
+            'tgUsername' => 'string|max:24',
+            'unsubscribeDate' => 'date',
+            //'status' => 'required|string|max:32',
         ];
     }
 }

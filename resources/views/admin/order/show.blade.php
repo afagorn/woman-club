@@ -8,7 +8,7 @@
 @section('content')
   <div class="card">
     <div class="card-header card-header-primary">
-      <h4 class="card-title">Просмотр продукта</h4>
+      <h4 class="card-title">Просмотр заказа</h4>
       <div class="card-category">{{$order->name}}</div>
     </div>
     <div class="card-body">

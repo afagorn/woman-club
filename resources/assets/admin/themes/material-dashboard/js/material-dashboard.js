@@ -15,7 +15,7 @@
 
  */
 
-(function() {
+/*(function() {
   isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
   if (isWindows) {
@@ -26,7 +26,7 @@
   } else {
     $('html').addClass('perfect-scrollbar-off');
   }
-})();
+})();*/
 
 
 var breakCards = true;

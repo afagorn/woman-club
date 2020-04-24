@@ -1,33 +1,49 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "axios": "^0.19",
-        "bootstrap": "^4.4.1",
-        "bootstrap-material-design": "^4.1.2",
-        "browser-sync": "^2.26.7",
-        "browser-sync-webpack-plugin": "^2.0.1",
-        "cross-env": "^7.0",
-        "jquery": "^3.2",
-        "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.13",
-        "moment": "^2.24.0",
-        "node-sass": "^4.13.1",
-        "popper.js": "^1.12",
-        "resolve-url-loader": "^2.3.1",
-        "sass-loader": "^8.0.0",
-        "sweetalert2": "^9.10.12",
-        "vue-template-compiler": "^2.6.11"
-    },
-    "dependencies": {
-        "yarn": "^1.22.4"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.19",
+    "bootstrap": "^4.4.1",
+    "bootstrap-material-design": "^4.1.2",
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "cross-env": "^7.0",
+    "jquery": "^3.2",
+    "laravel-mix": "^5.0.1",
+    "lodash": "^4.17.13",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
+    "popper.js": "^1.12",
+    "resolve-url-loader": "^2.3.1",
+    "sass-loader": "^8.0.0",
+    "sweetalert2": "^9.10.12",
+    "vue-template-compiler": "^2.6.11",
+    "yarn": "^1.22.4"
+  },
+  "name": "woman-club",
+  "description": "<p align=\"center\"><img src=\"https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg\" width=\"400\"></p>",
+  "version": "1.0.0",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afagorn/woman-club.git"
+  },
+  "author": "afagorn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afagorn/woman-club/issues"
+  },
+  "homepage": "https://github.com/afagorn/woman-club#readme",
+  "dependencies": {}
 }

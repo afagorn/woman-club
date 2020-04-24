@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\DTO\User\CustomerDTO;
 use App\Models\Order;
 use App\Services\User\CustomerService;
 
@@ -20,16 +21,16 @@ class OrderService
      * Оформление заказа
      * Создание Order с Customer, InviteLink и отправка письма
      * @param int $productId
-     * @param string $email
+     * @param CustomerDTO $customerDTO
      * @param string $status
      * @return Order
      */
-    public function checkout(int $productId, string $email = null, $status = Order::STATUS_NOT_PAID): Order
+    public function checkout(int $productId, CustomerDTO $customerDTO, $status = Order::STATUS_NOT_PAID): Order
     {
-        $customer = $this->customerService->createBlank($email);
+        $customer = $this->customerService->create($customerDTO);
         $tgInviteLink = $this->tgInviteLinkService->create($productId);
 
-        if(!is_null($email)) {
+        if(!is_null($customer->user->email)) {
             // TODO Отправка письма с ссылкой
         }
 

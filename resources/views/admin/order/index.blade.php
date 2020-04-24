@@ -39,15 +39,15 @@
                 <td>{{$order->created_at}}</td>
                 <td>{{$order->updated_at}}</td>
                 <td class="td-actions text-right">
-                  <a href="{{route('admin.products.show', $order->id)}}" type="button" rel="tooltip"
+                  <a href="{{route('admin.order.show', $order->id)}}" type="button" rel="tooltip"
                      class="btn btn-info" data-original-title="Посмотреть" title="Посмотреть">
                     <i class="material-icons">visibility</i>
                   </a>
-                  <a href="{{route('admin.products.edit', $order->id)}}" type="button" rel="tooltip"
+                  <a href="{{route('admin.order.edit', $order->id)}}" type="button" rel="tooltip"
                      class="btn btn-success" data-original-title="Редактировать" title="Редактировать">
                     <i class="material-icons">edit</i>
                   </a>
-                  <form action="{{route('admin.products.destroy', $order->id)}}" method="POST"
+                  <form action="{{route('admin.order.destroy', $order->id)}}" method="POST"
                         style="display: inline-block;">
                     @csrf
                     @method('DELETE')
