@@ -20,6 +20,7 @@
             <tr>
               <th>ID</th>
               <th>Покупатель</th>
+              <th>Дата отписки</th>
               <th>Инвайт линк</th>
               <th>Стоимость</th>
               <th>Статус</th>
@@ -35,6 +36,7 @@
                 <td>
                   <a href="{{route('admin.customer.show', $order->customer->id)}}">{{!is_null($order->customer->user->name) ? $order->customer->user->name : 'Без имени'}}</a>
                 </td>
+                <td>{{$order->customer->unsubscribeDateToText()}}</td>
                 <td>{{$order->tgInviteLink->link}}</td>
                 <td>{{$order->cost}}</td>
                 <td>{{$order->statusToText()}}</td>

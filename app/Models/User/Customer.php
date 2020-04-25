@@ -42,6 +42,14 @@ class Customer extends Model
         return $customer;
     }
 
+    public function unsubscribeDateToText()
+    {
+        if(is_null($this->unsubscribe_at))
+            return 'Не указана';
+
+        return $this->unsubscribe_at->toDateTimeString();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -30,8 +30,6 @@ class OrderService
     {
         $product = Product::find($productId)->first();
 
-        //dd($product->cost);
-
         $customer = $this->customerService->create($customerDTO);
         $tgInviteLink = $this->tgInviteLinkService->create($productId);
 
