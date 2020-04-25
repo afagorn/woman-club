@@ -19,6 +19,7 @@ class OrdersTableSeeder extends Seeder
 
             $inviteLink = factory(TgInviteLink::class)->create();
             $order->tg_invite_link_id = $inviteLink->id;
+            $order->cost = $inviteLink->product_id == 1 ? 250 : 500;
 
             $user = factory(User::class)->create();
 

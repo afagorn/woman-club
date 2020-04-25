@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->bigInteger('customer_id')->unsigned();
             $table->bigInteger('tg_invite_link_id')->unsigned();
+            $table->integer('cost')->unsigned();
             $table->string('status', 48);
             $table->timestamps();
 

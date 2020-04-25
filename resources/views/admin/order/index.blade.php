@@ -21,6 +21,7 @@
               <th>ID</th>
               <th>Покупатель</th>
               <th>Инвайт линк</th>
+              <th>Стоимость</th>
               <th>Статус</th>
               <th>Создан</th>
               <th>Обновлен</th>
@@ -35,6 +36,7 @@
                   <a href="{{route('admin.customer.show', $order->customer->id)}}">{{!is_null($order->customer->user->name) ? $order->customer->user->name : 'Без имени'}}</a>
                 </td>
                 <td>{{$order->tgInviteLink->link}}</td>
+                <td>{{$order->cost}}</td>
                 <td>{{$order->statusToText()}}</td>
                 <td>{{$order->created_at}}</td>
                 <td>{{$order->updated_at}}</td>

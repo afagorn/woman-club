@@ -25,10 +25,10 @@
           <span class="list-description__unit list-description__unit_key">Телеграм ссылка</span>
           <span class="list-description__unit list-description__unit_value">{{$order->tgInviteLink->link}}</span>
         </li>
-        {{--<li class="list__item list-description__item">
+        <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Стоимость</span>
           <span class="list-description__unit list-description__unit_value">{{$order->cost}}</span>
-        </li>--}}
+        </li>
         <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Статус</span>
           <span class="list-description__unit list-description__unit_value">{{$order->statusToText()}}</span>

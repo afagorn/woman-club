@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $customer_id
  * @property int $tg_invite_link_id
+ * @property int $cost
  * @property string $status
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
@@ -31,13 +32,14 @@ class Order extends Model
     const STATUS_PAID = 'paid';
     const STATUS_NOT_PAID = 'not paid';
 
-    protected $fillable = ['customer_id', 'tg_invite_link_id', 'status'];
+    protected $fillable = ['customer_id', 'tg_invite_link_id', 'cost', 'status'];
 
-    public static function new(int $customerId, string $tgInviteLinkId, string $status): self
+    public static function new(int $customerId, string $tgInviteLinkId, int $cost, string $status): self
     {
         return static::create([
             'customer_id' => $customerId,
             'tg_invite_link_id' => $tgInviteLinkId,
+            'cost' => $cost,
             'status' => $status
         ]);
     }
