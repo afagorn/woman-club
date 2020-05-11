@@ -50,7 +50,6 @@ class Bot extends Command
 
     public function handle()
     {
-        $this->getUpdates->offset = 867355889 + 1;
         $this->bot();
     }
 
@@ -72,9 +71,9 @@ class Bot extends Command
         $this->tgLog = $tgLog;
     }
 
-    private function increaseUpdatesOffset(int $offset)
+    private function increaseUpdatesOffset(int $offsetNumber)
     {
-        $this->getUpdates->offset = $offset + 1;
+        $this->getUpdates->offset = $offsetNumber + 1;
     }
 
     private function bot()
