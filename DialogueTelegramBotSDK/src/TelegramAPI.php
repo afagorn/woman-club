@@ -23,6 +23,11 @@ class TelegramAPI
     private $loop;
 
     /**
+     * @var string
+     */
+    private $botToken;
+
+    /**
      * TelegramAPI constructor.
      * @param string $botToken
      * @param ProxyDTO|null $proxyDTO
@@ -30,13 +35,23 @@ class TelegramAPI
     public function __construct(string $botToken, ProxyDTO $proxyDTO = null)
     {
         $this->init($botToken, $proxyDTO);
+        $this->botToken = $botToken;
     }
 
+    /**
+     * @param TelegramMethods $method
+     * @return \React\Promise\PromiseInterface
+     */
     public function performApiRequest(TelegramMethods $method)
     {
         return $this->tgLog->performApiRequest($method);
     }
 
+    /**
+     * Отправка любого сообщения по chat_id
+     * @param string $text
+     * @param string $chatId
+     */
     public function sendMessage(string $text, string $chatId)
     {
         $sendMessage = new SendMessage();
@@ -64,8 +79,12 @@ class TelegramAPI
         $this->loop->run();
     }
 
-
-    private function init(string $botToken, ProxyDTO $proxyDTO = null)
+    /**
+     * Подключем прокси если нужно, React и стороннюю библиотеку для работы с API телеграмма
+     * @param string $botToken
+     * @param ProxyDTO|null $proxyDTO
+     */
+    public function init(string $botToken, ProxyDTO $proxyDTO = null)
     {
         $loop = Factory::create();
 

@@ -1,7 +1,7 @@
 <?php
 namespace DialogueTelegramBotSDK;
 
-use unreal4u\TelegramAPI\Telegram\Methods\GetUpdates;
+use DialogueTelegramBotSDK\Commands\Command;
 
 class DialogueBot
 {
@@ -13,20 +13,47 @@ class DialogueBot
     /**
      * @var TelegramAPI
      */
-    //private $telegramAPI;
+    private $telegramAPI;
 
-    //public function __construct(TelegramAPI $telegramAPI, UpdatesHandler $updatesHandler)
-    public function __construct(UpdatesHandler $updatesHandler)
+    /**
+     * DialogueBot constructor.
+     * @param TelegramAPI $telegramAPI
+     */
+    public function __construct(TelegramAPI $telegramAPI)
     {
-        //$this->telegramAPI = $telegramAPI;
-        //$this->updatesHandler = $updatesHandler ?? new UpdatesHandler($this->telegramAPI);
-        $this->updatesHandler = $updatesHandler;
+        $this->telegramAPI = $telegramAPI;
+        $this->updatesHandler = new UpdatesHandler($telegramAPI);
     }
 
-    public function start()
+    /**
+     * @return TelegramAPI
+     */
+    public function getTelegramAPI()
+    {
+        return $this->telegramAPI;
+    }
+
+    /**
+     * @return UpdatesHandler
+     */
+    public function getUpdatesHandler()
+    {
+        return $this->updatesHandler;
+    }
+
+    /**
+     * @param Command[] $command
+     */
+    public function addCommands(array $command)
+    {
+        $this->updatesHandler->getCommandHandler()->addCommands($command);
+    }
+
+    /**
+     * Запуск loop по обработке входящих Update. Цикл начинается с последнего Update
+     */
+    public function startUpdatesLoop()
     {
         $this->updatesHandler->startLoop();
     }
-
-
 }

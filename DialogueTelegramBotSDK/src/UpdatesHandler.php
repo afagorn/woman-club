@@ -1,6 +1,7 @@
 <?php
 namespace DialogueTelegramBotSDK;
 
+use DialogueTelegramBotSDK\Commands\CommandHandler;
 use unreal4u\TelegramAPI\Abstracts\TraversableCustomType;
 use unreal4u\TelegramAPI\Telegram\Methods\GetUpdates;
 use unreal4u\TelegramAPI\Telegram\Types\Update;
@@ -25,13 +26,31 @@ class UpdatesHandler
     /**
      * UpdatesHandler constructor.
      * @param TelegramAPI $telegramAPI
-     * @param GetUpdates $getUpdatesMethod
      */
-    public function __construct(TelegramAPI $telegramAPI, GetUpdates $getUpdatesMethod)
+    public function __construct(TelegramAPI $telegramAPI)
     {
         $this->telegramAPI = $telegramAPI;
-        $this->getUpdatesMethod = $getUpdatesMethod ?? new GetUpdates();
-        $this->commandHandler = new CommandHandler();
+        $this->commandHandler = new CommandHandler($telegramAPI);
+        $this->getUpdatesMethod = new GetUpdates();
+    }
+
+    /**
+     * @param int $timeout
+     * @param int $offset
+     * @param int $limit
+     * @param array $allowedUpdates
+     */
+    public function configGetUpdatesMethod(int $timeout = 0, int $offset = 0, $limit = 100, $allowedUpdates = [])
+    {
+        $this->getUpdatesMethod->timeout = $timeout;
+        $this->getUpdatesMethod->offset = $offset;
+        $this->getUpdatesMethod->limit = $limit;
+        $this->getUpdatesMethod->allowed_updates = $allowedUpdates;
+    }
+
+    public function getCommandHandler()
+    {
+        return $this->commandHandler;
     }
 
     /**
@@ -58,25 +77,21 @@ class UpdatesHandler
     }
 
     /**
+     * Если это команда, то пропарсить и запустить команду, иначе выводим заглушку
      * @param Update $update
      */
     private function updateHandle(Update $update)
     {
-        var_dump($update->update_id);
-        var_dump($update->message->text);
-        //Если это команда, то пропарсить и запустить команду
         if(isset($update->message->entities)) {
             foreach ($update->message->entities as $entity) {
                 if($entity->type == 'bot_command') {
-                    $res = $this->commandHandler->handleMessageCommand($update->message->text);
-                    var_dump($res);
+                    $this->commandHandler->handleUpdateCommand($update);
                     return;
                 }
             }
         }
 
-        //Если это текст, то вывести заглушку
-        $this->telegramAPI->sendMessage('Пожалуйста, отправьте мне комманду', $update->message->chat->id);
+        $this->telegramAPI->sendMessage('Пожалуйста, отправьте мне команду', $update->message->chat->id);
 
         return;
     }
