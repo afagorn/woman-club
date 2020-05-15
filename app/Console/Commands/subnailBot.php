@@ -1,9 +1,10 @@
 <?php
 namespace App\Console\Commands;
 
-use DialogueTelegramBotSDK\DialogueBot;
-use DialogueTelegramBotSDK\DTO\ProxyDTO;
-use DialogueTelegramBotSDK\TelegramAPI;
+use afagorn\DialogueTelegramBot\DialogueBot;
+use afagorn\DialogueTelegramBot\DTO\ProxyDTO;
+use afagorn\DialogueTelegramBot\TelegramAPI;
+use App\Console\Commands\SubnailBot\Commands\StartCommand;
 use Illuminate\Console\Command;
 
 class SubnailBot extends Command
@@ -25,7 +26,7 @@ class SubnailBot extends Command
         $dialogueBot->getUpdatesHandler()->configGetUpdatesMethod(10);
 
         $dialogueBot->addCommands([
-
+            new StartCommand()
         ]);
 
         $dialogueBot->startUpdatesLoop();
