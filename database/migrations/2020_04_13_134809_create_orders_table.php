@@ -16,8 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('customer_id')->unsigned();
-            $table->bigInteger('tg_invite_link_id')->unsigned();
+            //$table->bigInteger('product_id')->unsigned();
+            $table->json('products_id');
             $table->integer('cost')->unsigned();
+            $table->string('type', 48);
             $table->string('status', 48);
             $table->timestamps();
 
@@ -26,10 +28,15 @@ class CreateOrdersTable extends Migration
                 ->on('customers')
                 ->onDelete('restrict');
 
-            $table->foreign('tg_invite_link_id', 'orders-tg_invite_link_id-to-tg_invite_links-id')
+            /*$table->foreign('product_id', 'tg_bot_invites-product_id-to-products-id')
+                ->references('id')
+                ->on('products')
+                ->onDelete('cascade');*/
+
+            /*$table->foreign('tg_invite_link_id', 'orders-tg_invite_link_id-to-tg_invite_links-id')
                 ->references('id')
                 ->on('tg_invite_links')
-                ->onDelete('restrict');
+                ->onDelete('restrict');*/
         });
     }
 

@@ -2,6 +2,7 @@
 namespace App\Services\User;
 
 use App\Models\DTO\User\CustomerDTO;
+use App\Models\TgBotInvite;
 use App\Models\User\Customer;
 
 class CustomerService
@@ -18,5 +19,26 @@ class CustomerService
         }
 
         return Customer::new($DTO);
+    }
+
+    /**
+     * Регистрация Покупателя после того как он оплатил и перешел по инвайт ссылке
+     * @param string $hash
+     * @param string $tgUsername
+     * @return TgBotInvite|object|null
+     */
+    public function registerToTelegram(string $hash, string $tgUsername)
+    {
+        $invite = TgBotInvite::where(['hash' => $hash, 'status' => TgBotInvite::STATUS_NOT_ACTIVATED])
+            ->with(['order.customer'])
+            ->first();
+
+        if(is_null($invite))
+            return null;
+
+        $invite->order->customer->addTelegramUsername($tgUsername);
+        $invite->doActive();
+
+        return $invite;
     }
 }

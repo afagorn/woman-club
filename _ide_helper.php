@@ -2,8 +2,8 @@
 // @formatter:off
 
 /**
- * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.4.0 on 2020-05-15 11:22:55.
+ * A helper file for Laravel, to provide autocomplete information to your IDE
+ * Generated for Laravel 7.11.0 on 2020-05-15 14:08:42.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2646,14 +2646,15 @@ namespace Illuminate\Support\Facades {
          * Compile a class component opening.
          *
          * @param string $component
+         * @param string $alias
          * @param string $data
          * @param string $hash
          * @return string 
          * @static 
          */ 
-        public static function compileClassComponentOpening($component, $data, $hash)
+        public static function compileClassComponentOpening($component, $alias, $data, $hash)
         {
-                        return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $data, $hash);
+                        return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $alias, $data, $hash);
         }
         
         /**
@@ -2678,6 +2679,19 @@ namespace Illuminate\Support\Facades {
         public static function sanitizeComponentAttribute($value)
         {
                         return \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($value);
+        }
+        
+        /**
+         * Compile Blade echos into valid PHP.
+         *
+         * @param string $value
+         * @return string 
+         * @static 
+         */ 
+        public static function compileEchos($value)
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        return $instance->compileEchos($value);
         }
          
     }
@@ -2926,7 +2940,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -2954,7 +2968,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -2968,7 +2982,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched after the response was sent based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -2996,7 +3010,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -3066,6 +3080,8 @@ namespace Illuminate\Support\Facades {
     /**
      * 
      *
+     * @method static \Illuminate\Contracts\Cache\Lock lock(string $name, int $seconds = 0, mixed $owner = null)
+     * @method static \Illuminate\Contracts\Cache\Lock restoreLock(string $name, string $owner)
      * @see \Illuminate\Cache\CacheManager
      * @see \Illuminate\Cache\Repository
      */ 
@@ -3955,7 +3971,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key
          * @param mixed $default
          * @param string|null $path
-         * @return \Symfony\Component\HttpFoundation\Cookie 
+         * @return \Symfony\Component\HttpFoundation\Cookie|null 
          * @static 
          */ 
         public static function queued($key, $default = null, $path = null)
@@ -4222,6 +4238,20 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Database\DatabaseManager $instance */
                         return $instance->reconnect($name);
+        }
+        
+        /**
+         * Set the default database connection for the callback execution.
+         *
+         * @param string $name
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function usingConnection($name, $callback)
+        {
+                        /** @var \Illuminate\Database\DatabaseManager $instance */
+                        return $instance->usingConnection($name, $callback);
         }
         
         /**
@@ -5423,7 +5453,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -5451,7 +5481,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -6517,7 +6547,7 @@ namespace Illuminate\Support\Facades {
      *
      * @method static \Illuminate\Http\Client\PendingRequest asJson()
      * @method static \Illuminate\Http\Client\PendingRequest asForm()
-     * @method static \Illuminate\Http\Client\PendingRequest attach(string $name, string $contents, string|null $filename = null, array $headers)
+     * @method static \Illuminate\Http\Client\PendingRequest attach(string $name, string $contents, string|null $filename = null, array $headers = [])
      * @method static \Illuminate\Http\Client\PendingRequest asMultipart()
      * @method static \Illuminate\Http\Client\PendingRequest bodyFormat(string $format)
      * @method static \Illuminate\Http\Client\PendingRequest contentType(string $contentType)
@@ -6535,6 +6565,7 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Http\Client\PendingRequest withOptions(array $options)
      * @method static \Illuminate\Http\Client\PendingRequest beforeSending(callable $callback)
      * @method static \Illuminate\Http\Client\Response get(string $url, array $query = [])
+     * @method static \Illuminate\Http\Client\Response head(string $url, array $query = [])
      * @method static \Illuminate\Http\Client\Response post(string $url, array $data = [])
      * @method static \Illuminate\Http\Client\Response patch(string $url, array $data = [])
      * @method static \Illuminate\Http\Client\Response put(string $url, array $data = [])
@@ -6637,6 +6668,44 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Http\Client\Factory $instance */
                         $instance->assertSent($callback);
+        }
+        
+        /**
+         * Assert that a request / response pair was not recorded matching a given truth test.
+         *
+         * @param callable $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNotSent($callback)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertNotSent($callback);
+        }
+        
+        /**
+         * Assert that no request / response pair was recorded.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNothingSent()
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertNothingSent();
+        }
+        
+        /**
+         * Assert how many requests have been recorded.
+         *
+         * @param $count
+         * @return void 
+         * @static 
+         */ 
+        public static function assertSentCount($count)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        $instance->assertSentCount($count);
         }
         
         /**
@@ -7366,7 +7435,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was sent based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -7406,7 +7475,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was queued based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -7741,7 +7810,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void 
          * @throws \Exception
@@ -7772,7 +7841,7 @@ namespace Illuminate\Support\Facades {
          * Determine if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void 
          * @throws \Exception
@@ -8110,7 +8179,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -8125,7 +8194,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a job was pushed based on a truth-test callback.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -8168,7 +8237,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -8587,6 +8656,40 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param mixed $parameters
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function signedRoute($route, $parameters = [], $expiration = null, $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->signedRoute($route, $parameters, $expiration, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param mixed $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function temporarySignedRoute($route, $expiration, $parameters = [], $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->temporarySignedRoute($route, $expiration, $parameters, $status, $headers);
+        }
+        
+        /**
          * Create a new redirect response to a controller action.
          *
          * @param string|array $action
@@ -8924,7 +9027,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the client user agent.
          *
-         * @return string 
+         * @return string|null 
          * @static 
          */ 
         public static function userAgent()
@@ -11384,6 +11487,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Create a new Route object.
+         *
+         * @param array|string $methods
+         * @param string $uri
+         * @param mixed $action
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function newRoute($methods, $uri, $action)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->newRoute($methods, $uri, $action);
+        }
+        
+        /**
          * Return the response returned by the given route.
          *
          * @param string $name
@@ -12337,6 +12455,30 @@ namespace Illuminate\Support\Facades {
      * @see \Illuminate\Session\Store
      */ 
     class Session {
+        
+        /**
+         * Determine if requests for the same session should wait for each to finish before executing.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function shouldBlock()
+        {
+                        /** @var \Illuminate\Session\SessionManager $instance */
+                        return $instance->shouldBlock();
+        }
+        
+        /**
+         * Get the name of the cache store / driver that should be used to acquire session locks.
+         *
+         * @return string|null 
+         * @static 
+         */ 
+        public static function blockDriver()
+        {
+                        /** @var \Illuminate\Session\SessionManager $instance */
+                        return $instance->blockDriver();
+        }
         
         /**
          * Get the session configuration.
@@ -13315,7 +13457,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function prepend($path, $data, $separator = '')
+        public static function prepend($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->prepend($path, $data, $separator);
@@ -13330,7 +13473,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function append($path, $data, $separator = '')
+        public static function append($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->append($path, $data, $separator);
@@ -16275,161 +16419,6 @@ namespace Facade\Ignition\Facades {
  
 }
 
-namespace Laracasts\Flash { 
-
-    /**
-     * 
-     *
-     */ 
-    class Flash {
-        
-        /**
-         * Flash an information message.
-         *
-         * @param string|null $message
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function info($message = null)
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->info($message);
-        }
-        
-        /**
-         * Flash a success message.
-         *
-         * @param string|null $message
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function success($message = null)
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->success($message);
-        }
-        
-        /**
-         * Flash an error message.
-         *
-         * @param string|null $message
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function error($message = null)
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->error($message);
-        }
-        
-        /**
-         * Flash a warning message.
-         *
-         * @param string|null $message
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function warning($message = null)
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->warning($message);
-        }
-        
-        /**
-         * Flash a general message.
-         *
-         * @param string|null $message
-         * @param string|null $level
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function message($message = null, $level = null)
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->message($message, $level);
-        }
-        
-        /**
-         * Flash an overlay modal.
-         *
-         * @param string|null $message
-         * @param string $title
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function overlay($message = null, $title = 'Notice')
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->overlay($message, $title);
-        }
-        
-        /**
-         * Add an "important" flash to the session.
-         *
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function important()
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->important();
-        }
-        
-        /**
-         * Clear all registered messages.
-         *
-         * @return \Laracasts\Flash\FlashNotifier 
-         * @static 
-         */ 
-        public static function clear()
-        {
-                        /** @var \Laracasts\Flash\FlashNotifier $instance */
-                        return $instance->clear();
-        }
-        
-        /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param object|callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function macro($name, $macro)
-        {
-                        \Laracasts\Flash\FlashNotifier::macro($name, $macro);
-        }
-        
-        /**
-         * Mix another object into the class.
-         *
-         * @param object $mixin
-         * @param bool $replace
-         * @return void 
-         * @throws \ReflectionException
-         * @static 
-         */ 
-        public static function mixin($mixin, $replace = true)
-        {
-                        \Laracasts\Flash\FlashNotifier::mixin($mixin, $replace);
-        }
-        
-        /**
-         * Checks if macro is registered.
-         *
-         * @param string $name
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasMacro($name)
-        {
-                        return \Laracasts\Flash\FlashNotifier::hasMacro($name);
-        }
-         
-    }
- 
-}
-
 
 namespace  { 
 
@@ -17963,6 +17952,20 @@ namespace  {
             }
          
             /**
+             * Add an "or where in raw" clause for integer values to the query.
+             *
+             * @param string $column
+             * @param \Illuminate\Contracts\Support\Arrayable|array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereIntegerInRaw($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereIntegerInRaw($column, $values);
+            }
+         
+            /**
              * Add a "where not in raw" clause for integer values to the query.
              *
              * @param string $column
@@ -17975,6 +17978,20 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->whereIntegerNotInRaw($column, $values, $boolean);
+            }
+         
+            /**
+             * Add an "or where not in raw" clause for integer values to the query.
+             *
+             * @param string $column
+             * @param \Illuminate\Contracts\Support\Arrayable|array $values
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */ 
+            public static function orWhereIntegerNotInRaw($column, $values)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereIntegerNotInRaw($column, $values);
             }
          
             /**
@@ -18599,7 +18616,7 @@ namespace  {
             /**
              * Add an "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -19356,8 +19373,6 @@ namespace  {
     class Breadcrumbs extends \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs {}
 
     class Flare extends \Facade\Ignition\Facades\Flare {}
-
-    class Flash extends \Laracasts\Flash\Flash {}
  
 }
 

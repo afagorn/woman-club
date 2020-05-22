@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product\Product;
 use App\Models\User\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -11,13 +12,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $customer_id
- * @property int $tg_invite_link_id
+ * @property array $products_id Json cast
+ * @property string $type
  * @property int $cost
  * @property string $status
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property Customer $customer
- * @property TgInviteLink $tgInviteLink
+ * @property Product[] $products
  * @method static Builder|\App\Models\Order newModelQuery()
  * @method static Builder|\App\Models\Order newQuery()
  * @method static Builder|\App\Models\Order query()
@@ -26,32 +28,38 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|\App\Models\Order whereProductId($value)
  * @method static Builder|\App\Models\Order whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\TgBotInvite $tgInviteLink
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereType($value)
  */
 class Order extends Model
 {
     const STATUS_PAID = 'paid';
-    const STATUS_NOT_PAID = 'not paid';
+    const STATUS_NOT_PAID = 'not_paid';
+
+    const TYPE_SUB_NEW = 'sub_new';
+    const TYPE_SUB_RENEWAL = 'sub_renewal';
 
     protected $fillable = ['customer_id', 'tg_invite_link_id', 'cost', 'status'];
 
-    public static function new(int $customerId, string $tgInviteLinkId, int $cost, string $status): self
+    protected $casts = ['products_id' => 'array'];
+
+    public static function new(int $customerId, array $productsId, string $type, int $cost, string $status): self
     {
         return static::create([
             'customer_id' => $customerId,
-            'tg_invite_link_id' => $tgInviteLinkId,
+            'products_id' => $productsId,
+            'type' => $type,
             'cost' => $cost,
             'status' => $status
         ]);
     }
 
-    public function customer()
+    public function doStatusPaid()
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
-    }
-
-    public function tgInviteLink()
-    {
-        return $this->belongsTo(TgInviteLink::class, 'tg_invite_link_id', 'id');
+        $this->update(['status' => self::STATUS_PAID]);
     }
 
     public function statusToText()
@@ -63,5 +71,23 @@ class Order extends Model
             $text = 'Не оплачен';
 
         return $text;
+    }
+
+    public static function isEqualCost(int $orderId, int $cost)
+    {
+        $order = Order::findOrFail($orderId);
+        return $order->cost === $cost;
+    }
+
+    /********** relations ***********/
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function getProductsAttribute()
+    {
+        return Product::findMany($this->products_id);
     }
 }

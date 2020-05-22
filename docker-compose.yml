@@ -19,9 +19,9 @@ services:
     build:
       context: docker/development/mysql
     ports:
-      - '3307:3306'
+      - '3306:3306'
     expose:
-      - '3307'
+      - '3306'
     volumes:
       - mysql_db_data_container:/var/lib/mysql
 

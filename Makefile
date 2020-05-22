@@ -25,3 +25,9 @@ docker-node:
 
 docker-stop-all:
 	docker stop $(docker ps -a -q)
+
+tg-bot:
+	make docker-php args="artisan subnailBot:start"
+
+db-seed:
+	make docker-php args="artisan migrate:fresh; php artisan db:seed"

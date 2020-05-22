@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Payment\YandexPaymentService;
 use Illuminate\Http\Request;
 
-class YandexPayment extends Controller
+class YandexPaymentController extends Controller
 {
     protected $service;
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Customer
+ *
  * @property int $id
  * @property int $user_id
  * @property string $tg_username
@@ -18,6 +19,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer query()
  * @mixin \Eloquent
+ * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer whereTgUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer whereUnsubscribeAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Customer whereUserId($value)
  */
 class Customer extends Model
 {
@@ -48,6 +54,11 @@ class Customer extends Model
             return 'Не указана';
 
         return $this->unsubscribe_at->toDateTimeString();
+    }
+
+    public function addTelegramUsername(string $tgUsername)
+    {
+        $this->update(['tg_username' => $tgUsername]);
     }
 
     public function user()

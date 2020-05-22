@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Product;
 
-use App\Helpers\Helper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,18 +14,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  * @property integer $cost
+ * @property string $invite_link
  * @property string $created_at
  * @property string $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedAt($value)
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @method static Builder|Product whereCost($value)
+ * @method static Builder|Product whereCreatedAt($value)
+ * @method static Builder|Product whereDescription($value)
+ * @method static Builder|Product whereId($value)
+ * @method static Builder|Product whereName($value)
+ * @method static Builder|Product whereSlug($value)
+ * @method static Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Product extends Model
@@ -39,20 +40,32 @@ class Product extends Model
         return Product::where(['slug' => $value])->first();
     }
 
+    /**
+     * @param string $name
+     * @param string $description
+     * @param int $cost
+     * @param string|null $slug
+     * @return static
+     */
     public static function new(string $name, string $description, int $cost, string $slug = null): self {
-        $product = static::create([
+        return static::create([
             'name' => $name,
             'description' => $description,
             'cost' => $cost,
             'slug' => is_null($slug) ? \Str::slug($name) : $slug
         ]);
-
-        return $product;
     }
 
+    /**
+     * @param int $productId
+     * @param int $cost
+     * @return bool
+     */
     public static function isEqualCost(int $productId, int $cost)
     {
         $product = self::findOrFail($productId);
         return $product->cost === $cost;
     }
+
+
 }

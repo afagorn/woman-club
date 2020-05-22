@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\TgBotInvite;
 
 class HomeController extends Controller
 {
@@ -11,16 +15,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
-        return view('dashboard');
+        return view('site.payment.successPayment');
     }
 }

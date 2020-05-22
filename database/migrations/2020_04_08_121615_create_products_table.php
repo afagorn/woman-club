@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('cost')->unsigned();
+            $table->string('invite_link', 128);
             $table->timestamps();
         });
     }

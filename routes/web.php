@@ -7,7 +7,7 @@ Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/pay-form', 'PayFormController@index');
 
 //Яндекс оплата уведомления
-Route::post('/yandex-payment', 'YandexPayment@index')->name('yandexPayment');
+Route::post('/yandex-payment', 'YandexPaymentController@index')->name('yandexPayment');
 
 //Админка
 Route::group([

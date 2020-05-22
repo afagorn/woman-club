@@ -3,7 +3,7 @@ namespace App\Services\Products;
 
 use App\Http\Requests\Admin\Products\CreateRequest;
 use App\Http\Requests\Admin\Products\EditRequest;
-use App\Models\Product;
+use App\Models\Product\Product;
 
 class ProductService
 {

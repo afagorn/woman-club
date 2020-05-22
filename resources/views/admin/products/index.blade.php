@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Product;
+use App\Models\Product\Product;
 
 /**
  * @var Product[] $products

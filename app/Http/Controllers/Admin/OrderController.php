@@ -7,17 +7,35 @@ use App\Http\Requests\Admin\Order\CreateRequest;
 use App\Models\DTO\User\CustomerDTO;
 use App\Models\DTO\User\UserDTO;
 use App\Models\Order;
-use App\Models\Product;
+use App\Models\Product\Product;
 use App\Services\OrderService;
+use App\Services\User\CustomerService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    /**
+     * @var OrderService
+     */
     private $service;
 
-    public function __construct(OrderService $service)
+    /**
+     * @var CustomerService
+     */
+    private $customerService;
+
+    /**
+     * OrderController constructor.
+     * @param OrderService $service
+     * @param CustomerService $customerService
+     */
+    public function __construct(
+        OrderService $service,
+        CustomerService $customerService
+    )
     {
         $this->service = $service;
+        $this->customerService = $customerService;
     }
 
     public function index()
@@ -38,10 +56,12 @@ class OrderController extends Controller
     {
         $order = $this->service->checkout(
             $request['productId'],
-            new CustomerDTO(
-                new UserDTO(
-                    $request['email'],
-                    $request['name']
+            $this->customerService->create(
+                new CustomerDTO(
+                    new UserDTO(
+                        $request['email'],
+                        $request['name']
+                    )
                 )
             ),
             $request['status']

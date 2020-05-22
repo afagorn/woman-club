@@ -17,10 +17,10 @@ class SubnailBot extends Command
         $dialogueBot = new DialogueBot(new TelegramAPI(
             env('TELEGRAM_BOT_TOKEN'),
             (env('APP_ENV') == 'local' ? new ProxyDTO(
-                '94.177.239.9',
-                '7080',
-                'sockd',
-                'sockdpasswd'
+                env('PROXY_SOCKS_IP'),
+                env('PROXY_SOCKS_PORT'),
+                env('PROXY_SOCKS_LOGIN'),
+                env('PROXY_SOCKS_PASSWORD')
             ) : null)));
 
         $dialogueBot->getUpdatesHandler()->configGetUpdatesMethod(10);
