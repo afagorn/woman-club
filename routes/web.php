@@ -2,12 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::group([
+    'as' => 'site.',
+    'namespace' => 'Site'
+], function () {
+    Route::get('/', 'HomeController@index')->name('home');
 
-//Route::get('/pay-form', 'PayFormController@index');
-
-//Яндекс оплата уведомления
-Route::post('/yandex-payment', 'YandexPaymentController@index')->name('yandexPayment');
+    //Яндекс оплата уведомления
+    Route::post('/yandex-payment', 'YandexPaymentController@index')->name('yandexPayment');
+});
 
 //Админка
 Route::group([

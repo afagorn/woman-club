@@ -19,5 +19,5 @@ mix
     .sass('resources/assets/admin/sass/app.admin.scss', 'css')
     .sass('resources/assets/site/sass/app.site.scss', 'css')
     .version()
-    .browserSync('192.168.99.100:8080')
+    .browserSync('127.0.0.1:8080')
     .disableSuccessNotifications();

@@ -1,3 +1,13 @@
+body {
+    margin: 0;
+    font-family: 'Roboto',Arial,sans-serif;
+}
+
+.phar {
+    font-weight: 300;
+    line-height: 1.55;
+}
+
 .list {
 
 }
@@ -5,4 +15,111 @@
     list-style: none;
     padding-left: 0;
     margin: 0;
+}
+
+.head {
+    &_center {
+        text-align: center;
+    }
+
+    &_color_black {
+        color: #000000;
+    }
+
+    &_h2 {
+        font-size: 32px;
+    }
+}
+
+.button {
+    display: block;
+    border: none;
+    background-color: #ffffff;
+    color: #333333;
+    border-radius: 30px;
+    padding: 15px 45px;
+    font-size: 24px;
+    font-weight: 600;
+
+    &_theme_orange {
+        background-color: #ff6604;
+        color: #ffffff;
+    }
+
+    &_theme_white {
+        background-color: #ffffff;
+        color: #333333;
+    }
+}
+
+.buttonGroup {
+    &_center {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__unit {
+        margin: 0 7px;
+    }
+}
+
+.headerPage {
+    &_background {
+        background-image: url("/img/background-1.jpg");
+        background-size: cover;
+        position: relative;
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            background-color: #000000;
+            opacity: 0.7;
+            top: 0;
+        }
+    }
+    &__wrapper {
+
+    }
+    &__content {
+        padding: 100px 0;
+        z-index: 20;
+        position: relative;
+    }
+
+    &__unit {
+        margin: 50px 10px;
+        &_description {
+            width: 50%;
+            margin: auto;
+        }
+
+        &_startDate {
+            text-align: center;
+            margin-top: 90px;
+            margin-bottom: 90px;
+        }
+    }
+
+    &_head {
+
+        &_h1 {
+            color: #ffffff;
+            font-size: 72px;
+        }
+    }
+
+    &__description {
+        color: #ffffff;
+        font-size: 22px;
+        text-align: center;
+    }
+
+    &__startDate {
+        color: #ffffffff;
+        font-size: 28px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
 }
