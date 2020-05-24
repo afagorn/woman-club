@@ -51,9 +51,9 @@ class OrderService
             $sumCostOrder += (int) $product->cost;
         }
 
-        if(!is_null($customer->user->email)) {
-            // TODO Отправка письма с ссылкой
-        }
+        // TODO Отправка письма с ссылкой
+        /*if(!is_null($customer->user->email)) {
+        }*/
 
         return Order::new(
             $customer->id,

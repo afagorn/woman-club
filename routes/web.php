@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+//API
+Route::post('/api/order/create', 'API\OrderController@create');
+
+//Site
 Route::group([
     'as' => 'site.',
     'namespace' => 'Site'

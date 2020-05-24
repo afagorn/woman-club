@@ -65,6 +65,40 @@
 </div>
 
 
+<div class="" style="margin: 100px 0">
+  <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+    @csrf
+    <input type="hidden" name="receiver" value="{ { $receiver }}">
+    <input type="hidden" name="formcomment" value="Проект «Железный человек»: реактор холодного ядерного синтеза">
+    <input type="hidden" name="short-dest" value="Проект «Железный человек»: реактор холодного ядерного синтеза">
+    <input type="hidden" name="label" value="$order_id">
+    <input type="hidden" name="quickpay-form" value="donate">
+    <input type="hidden" name="targets" value="транзакция {order_id}">
+    <input type="hidden" name="sum" value="4568.25" data-type="number">
+    <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
+    <input type="hidden" name="need-fio" value="false">
+    <input type="hidden" name="need-email" value="true">
+    <input type="hidden" name="need-phone" value="false">
+    <input type="hidden" name="need-address" value="false">
+    <input type="hidden" name="productsId" value="[1]">
+    <div class="form-group">
+      <label class="col-form-label">Имя</label>
+      <input type="text" name="name">
+    </div>
+    <div class="form-group">
+      <label class="col-form-label">Email</label>
+      <input type="text" name="email" value="test@test.ru">
+    </div>
+    <div class="form-group">
+      <label class="col-form-label"><input type="radio" name="paymentType" value="PC" checked>Яндекс.Деньгами</label>
+    </div>
+    <div class="form-group">
+      <label><input type="radio" name="paymentType" value="AC">Банковской картой</label>
+    </div>
+    <button id="jsPayFormSubmit" class="btn btn-primary">Оплатить</button>
+  </form>
+</div>
+
 
 <div id="allrecords" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="2490189" data-tilda-page-id="11485800" data-tilda-formskey="75384d1d73b94f218474ecbb9b8e314e">
 
@@ -74,9 +108,7 @@
         <div class="t-col t-col_10 t-prefix_1">
           <h2 class="head head_h2 head_color_black head_center" style="margin-bottom: 20px">О МАРАФОНЕ</h2>
           <div class="t473__descr t-descr t-descr_xxxl t-margin_auto" field="descr" style="color:#ffffff;">
-            <div style="color:#080808;" data-customstyle="yes">За 30 дней ты научишься с легкостью читать на английском,
-              прокачаешь свой разговорный язык, расширишь круг знакомств и, конечно же, узнаешь, как быть более
-              продуктивным и избавиться от вредных привычек с книгой Willpower doesn't work.
+            <div style="color:#080808;" data-customstyle="yes">За 30 дней ты научишься с легкостью читать на английском, прокачаешь свой разговорный язык, расширишь круг знакомств и, конечно же, узнаешь, как быть более продуктивным и избавиться от вредных привычек с книгой Willpower doesn't work.
             </div>
           </div>
         </div>
@@ -88,14 +120,7 @@
     <div class="t194" style="padding-bottom: 100px">
       <div class="t-container">
         <div class="t-col t-col_8 t-prefix_2">
-          <div class="t194__text t-text t-text_md" style="" field="text">Бенжамин Харди, доктор организационной
-            психологии, успешный блогер и отец троих приемных детей, предлагает вместо силы воли использовать окружающую
-            среду – ваших друзей, социальные сети, стрессовые обстоятельства, питание и распорядок дня – чтобы достигать
-            поставленных целей. Благодаря этой книге вы научитесь:<br/><br/>• достигать результатов без ежедневного
-            насилия над собой<br/><br/>• менять окружающую среду таким образом, чтобы она помогала вам добиваться
-            поставленных целей<br/><br/>• создавать систему отношений, повышающих вашу уверенность в себе<br/><br/>• без
-            потерь выходить из творческих кризисов, не впадать в «овощное» состояние;<br/><br/>• бороться с
-            зависимостями всех уровней и без проблем побеждать в этой борьбе.<br/></div>
+          <div class="t194__text t-text t-text_md" style="" field="text">Бенжамин Харди, доктор организационной психологии, успешный блогер и отец троих приемных детей, предлагает вместо силы воли использовать окружающую среду – ваших друзей, социальные сети, стрессовые обстоятельства, питание и распорядок дня – чтобы достигать поставленных целей. Благодаря этой книге вы научитесь:<br/><br/>• достигать результатов без ежедневного насилия над собой<br/><br/>• менять окружающую среду таким образом, чтобы она помогала вам добиваться поставленных целей<br/><br/>• создавать систему отношений, повышающих вашу уверенность в себе<br/><br/>• без потерь выходить из творческих кризисов, не впадать в «овощное» состояние;<br/><br/>• бороться с зависимостями всех уровней и без проблем побеждать в этой борьбе.<br/></div>
         </div>
         <div class="t-col t-col_2 t-align_left">
 
@@ -433,8 +458,7 @@
       </div>
       <div class="t-section__container t-container">
         <div class="t-col t-col_12">
-          <div class="t-section__bottomwrapper t-clear t-align_center "><a href="" target="" class="t-btn"
-                                                                           style="color:#ffffff;background-color:#1f5bff;border-radius:30px; -moz-border-radius:30px; -webkit-border-radius:30px;">
+          <div class="t-section__bottomwrapper t-clear t-align_center "><a href="" target="" class="t-btn" style="color:#ffffff;background-color:#1f5bff;border-radius:30px; -moz-border-radius:30px; -webkit-border-radius:30px;">
               <table style="width:100%; height:100%;">
                 <tr>
                   <td>Присоединиться к марафону</td>
@@ -444,19 +468,7 @@
         </div>
       </div>
     </div>
-    <style>#rec193470876 .t514__rightcol_8 .t514__line {
-        height: 4px;
-      }
 
-      #rec193470876 .t514__rightcol_8 .t514__sectiontextwrapper {
-        padding-bottom: 0;
-      }
-
-      @media screen and (max-width: 960px) {
-        #rec193470876 .t514__rightcol_8 .t514__line {
-          height: 0px;
-        }
-      }</style>
   </div>
   <div id="rec193476111" class="r t-rec t-rec_pt_150 t-rec_pb_150" style="padding-top:150px;padding-bottom:150px; "
        data-record-type="510"><!-- t510 -->
@@ -491,8 +503,7 @@
             </div>
           </div>
           <div class="t510__textwrapper t-cell t-valign_top" style="">
-            <div class="t-name t-name_md t510__bottommargin" style="" field="li_title__1476966593578">интересуешься
-              темой саморазвития
+            <div class="t-name t-name_md t510__bottommargin" style="" field="li_title__1476966593578">интересуешься темой саморазвития
             </div>
             <div class="t-descr t-descr_sm" style="" field="li_descr__1476966593578">Willpower doesn't work - эта книга отличается от большинства подобных тем, что подробно, на уровне физиологии описывает почему мы живем не правильно, и как это можно изменить.<br/>Всем кто брал себя в руки уже тысячи раз, и каждый раз «сдавался» – обязательно к прочтению
             </div>

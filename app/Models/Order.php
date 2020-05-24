@@ -42,7 +42,7 @@ class Order extends Model
     const TYPE_SUB_NEW = 'sub_new';
     const TYPE_SUB_RENEWAL = 'sub_renewal';
 
-    protected $fillable = ['customer_id', 'tg_invite_link_id', 'cost', 'status'];
+    protected $fillable = ['customer_id', 'type', 'cost', 'status', 'products_id'];
 
     protected $casts = ['products_id' => 'array'];
 
