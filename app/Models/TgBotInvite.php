@@ -35,7 +35,7 @@ class TgBotInvite extends Model
     const UPDATED_AT = null;
     protected $dates = ['activated_at', 'created_at'];
 
-    protected $fillable = ['product_id', 'link', 'status', 'activated_at'];
+    protected $fillable = ['hash', 'order_id', 'status', 'activated_at'];
 
     public static function new(int $orderId, string $status = self::STATUS_NOT_ACTIVATED, Carbon $activatedAt = null)
     {

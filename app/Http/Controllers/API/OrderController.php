@@ -33,6 +33,6 @@ class OrderController extends Controller
             json_decode($data['productsId'], true)
         );
 
-        return \Response::json(['orderId' => $order->id]);
+        return \Response::json(['id' => $order->id, 'cost' => $order->cost]);
     }
 }

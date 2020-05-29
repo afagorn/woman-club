@@ -39,7 +39,6 @@
 </div>
 
 <div class="headerPage headerPage_background">
-  {{--<div class="headerPage__wrapper">--}}
     <div class="headerPage__content">
       <div class="headerPage__unit">
         <h1 class="head head_h1 head_center headerPage_head headerPage_head_h1">Марафон по книге <br> "Willpower doesn't work"</h1>
@@ -61,26 +60,25 @@
         </div>
       </div>
     </div>
-  {{--</div>--}}
 </div>
 
-
 <div class="" style="margin: 100px 0">
-  <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+  <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" class="js-PayModalForm">
     @csrf
-    <input type="hidden" name="receiver" value="{ { $receiver }}">
-    <input type="hidden" name="formcomment" value="Проект «Железный человек»: реактор холодного ядерного синтеза">
-    <input type="hidden" name="short-dest" value="Проект «Железный человек»: реактор холодного ядерного синтеза">
-    <input type="hidden" name="label" value="$order_id">
+    <input type="hidden" name="receiver" value="4100115296615449">
+    <input type="hidden" name="formcomment" value="English improvers: Марафон по книге 'Willpower doesn't work'">
+    <input type="hidden" name="short-dest" value="English improvers: Марафон по книге 'Willpower doesn't work'">
+    <input type="hidden" name="label" value="order_id">
     <input type="hidden" name="quickpay-form" value="donate">
-    <input type="hidden" name="targets" value="транзакция {order_id}">
-    <input type="hidden" name="sum" value="4568.25" data-type="number">
-    <input type="hidden" name="comment" value="Хотелось бы получить дистанционное управление.">
+    <input type="hidden" name="targets" value="Заказ {}">
+    <input type="hidden" name="sum" value="-1" data-type="number">
+    <input type="hidden" name="comment" value="">
     <input type="hidden" name="need-fio" value="false">
-    <input type="hidden" name="need-email" value="true">
+    <input type="hidden" name="need-email" value="false">
     <input type="hidden" name="need-phone" value="false">
     <input type="hidden" name="need-address" value="false">
-    <input type="hidden" name="productsId" value="[1]">
+    <input type="hidden" name="productsId" value="[1,2]">
+    <input type="hidden" name="successURL" value="/success-payment">
     <div class="form-group">
       <label class="col-form-label">Имя</label>
       <input type="text" name="name">
@@ -97,6 +95,12 @@
     </div>
     <button id="jsPayFormSubmit" class="btn btn-primary">Оплатить</button>
   </form>
+</div>
+
+<div style="margin: 40px 20px; width: 400px">
+  <a class="button button_theme_orange js-ModalPayButton" data-productsId="[1]">Базовый</a>
+  <br>
+  <a class="button button_theme_orange js-ModalPayButton" data-productsId="[2]">Про</a>
 </div>
 
 

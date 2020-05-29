@@ -2,8 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Route::post('/api/order/create', 'API\OrderController@create');
+//Route::post('/api/payment/yandex-notification', 'API\PaymentController@yandexNotification');
+
 //API
-Route::post('/api/order/create', 'API\OrderController@create');
+Route::group([
+    'prefix' => 'api',
+    'as' => 'api.',
+    'namespace' => 'API'
+], function () {
+    //Работа с заказами
+    Route::post('/order/create', 'OrderController@create');
+
+    //Уведомления яндекса об оплате
+    Route::post('/payment/yandex-notification', 'PaymentController@yandexNotification');
+});
 
 //Site
 Route::group([
@@ -11,6 +24,9 @@ Route::group([
     'namespace' => 'Site'
 ], function () {
     Route::get('/', 'HomeController@index')->name('home');
+
+    //Страница благодарности после успешной покупки
+    Route::get('/success-payment{id}', 'HomeController@successPayment')->name('successPayment');
 
     //Яндекс оплата уведомления
     Route::post('/yandex-payment', 'YandexPaymentController@index')->name('yandexPayment');

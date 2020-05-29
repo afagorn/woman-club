@@ -2,13 +2,11 @@
 
 namespace App\Services\Payment;
 
-use App\Models\DTO\User\CustomerDTO;
-use App\Models\DTO\User\UserDTO;
 use App\Models\Order;
-use App\Models\Product\Product;
-use app\Services\OrderService;
+use App\Services\OrderService;
 use App\Services\User\CustomerService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class YandexPaymentService
 {
@@ -36,20 +34,20 @@ class YandexPaymentService
     /**
      * Обрабатываем успешный платеж
      * Проверяем сумму заказа и устанавливаем статус Оплачено
-     * @param Request $request
-     * @return bool
+     * @param array $dataRequest
      */
-    public function handleSuccessPayment(Request $request): bool
+    public function handleSuccessPayment(array $dataRequest)
     {
-        $this->checkHash($request['hash']);
-        $data = json_decode($request['label']);// {'orderId':1}
+        $this->checkHash($dataRequest['sha1_hash']);
+        $dataLabel = json_decode($dataRequest['label']);// {"orderId":1}
 
-        if(!Order::isEqualCost($data->orderId, (int) $request['amount']))
-            return false;
+        if(!isset($dataLabel->orderId) || !is_numeric($dataLabel->orderId))
+            throw new \InvalidArgumentException('Wrong order id');
 
-        $this->orderService->handlePaidOrder($data->orderId);
+        if(!Order::isEqualCost($dataLabel->orderId, (int) $dataRequest['amount']))
+            throw new \RuntimeException('Invalid order amount');
 
-        return true;
+        $this->orderService->handlePaidOrder($dataLabel->orderId);
     }
 
     /**

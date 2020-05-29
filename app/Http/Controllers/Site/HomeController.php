@@ -11,4 +11,13 @@ class HomeController extends Controller
     {
         return view('site.home');
     }
+
+    /**
+     * Страница благодарности после успешной оплаты
+     * @return \Illuminate\View\View
+     */
+    public function successPayment(Request $request, $id)
+    {
+        return view('site.successPayment');
+    }
 }

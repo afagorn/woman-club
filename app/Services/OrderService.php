@@ -42,7 +42,7 @@ class OrderService
      */
     public function create(Customer $customer, array $productsId, string $type = Order::TYPE_SUB_NEW, $status = Order::STATUS_NOT_PAID): Order
     {
-        $products = Product::whereIn('id', $productsId);
+        $products = Product::whereIn('id', $productsId)->get();
         if(is_null($products) || empty($products))
             throw new \InvalidArgumentException('Wrong products id');
 
@@ -51,9 +51,6 @@ class OrderService
             $sumCostOrder += (int) $product->cost;
         }
 
-        // TODO Отправка письма с ссылкой
-        /*if(!is_null($customer->user->email)) {
-        }*/
 
         return Order::new(
             $customer->id,
@@ -71,12 +68,19 @@ class OrderService
      */
     public function handlePaidOrder(int $orderId)
     {
-        $order = Order::find($orderId)->with('customer.user')->first();
+        $order = Order::where(['id' => $orderId])
+            ->with(['customer.user'])
+            ->first();
         $order->doStatusPaid();
 
+        //Пока бот не используется
         $invite = $this->tgBotInviteService->create($orderId);
 
-        //TODO Отправка письма с инвайтом на бота
+        //TODO Отправка письма с инвайт линкой на канал
+        /*if(!is_null($order->customer->user->email))
+            mail($order->customer, $order->products);*/
+
+        //Отправка письма с инвайтом на бота
         /*if(!is_null($order->customer->user->email))
             mail($order->customer, $invite->getInviteLink());*/
 
