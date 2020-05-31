@@ -39,7 +39,7 @@
 
 </head>
 <body class="{{ $class ?? '' }}">
-  <div class="container">
+  <div class="container container_full-height">
     @yield('content')
   </div>
 

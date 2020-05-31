@@ -26,7 +26,7 @@ Route::group([
     Route::get('/', 'HomeController@index')->name('home');
 
     //Страница благодарности после успешной покупки
-    Route::get('/success-payment{id}', 'HomeController@successPayment')->name('successPayment');
+    Route::get('/success-payment', 'HomeController@successPayment')->name('successPayment');
 
     //Яндекс оплата уведомления
     Route::post('/yandex-payment', 'YandexPaymentController@index')->name('yandexPayment');

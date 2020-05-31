@@ -1,6 +1,15 @@
+html, body {
+    height: 100%;
+}
 body {
     margin: 0;
     font-family: 'Roboto',Arial,sans-serif;
+}
+
+.container {
+    &_full-height {
+        height: 100%;
+    }
 }
 
 .phar {
@@ -121,5 +130,40 @@ body {
         font-size: 28px;
         font-weight: 600;
         text-transform: uppercase;
+    }
+}
+
+.thanksPay {
+    &__wrapper {
+        width: 50%;
+        margin: auto;
+        padding-top: 30px;
+    }
+    &__header {
+        margin-bottom: 30px;
+        &_text_center {
+            text-align: center;
+        }
+    }
+    &__head {
+        &_main {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__title {
+        font-size: 24px;
+    }
+
+    &__productList {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .thanksPay {
+        &__wrapper {
+            width: 90%;
+        }
     }
 }

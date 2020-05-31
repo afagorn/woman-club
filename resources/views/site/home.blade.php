@@ -65,7 +65,7 @@
 <div class="" style="margin: 100px 0">
   <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" class="js-PayModalForm">
     @csrf
-    <input type="hidden" name="receiver" value="4100115296615449">
+    <input type="hidden" name="receiver" value="{{env('YANDEX_MONEY_RECIEVER')}}">
     <input type="hidden" name="formcomment" value="English improvers: Марафон по книге 'Willpower doesn't work'">
     <input type="hidden" name="short-dest" value="English improvers: Марафон по книге 'Willpower doesn't work'">
     <input type="hidden" name="label" value="order_id">

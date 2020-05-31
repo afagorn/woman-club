@@ -15,6 +15,7 @@ $factory->define(\App\Models\Order::class, function (Faker $faker) {
         'products_id' => $productsId,
         'cost' => 250 * $countProducts,
         'type' => \App\Models\Order::TYPE_SUB_NEW,
+        'hash' => \Illuminate\Support\Str::random(32),
         'status' => \App\Models\Order::STATUS_PAID
     ];
 });

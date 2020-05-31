@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->json('products_id');
             $table->integer('cost')->unsigned();
             $table->string('type', 48);
+            $table->string('hash', 32);
             $table->string('status', 48);
             $table->timestamps();
 

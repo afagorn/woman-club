@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     //Создание заказа через "API"
     /*let API = (function () {
-        const tokenCSRF = '';
+        API.tokenCSRF = '';
     })();*/
-
 
     function createOrder(email, productsId, token, callback) {
         let data = new FormData();

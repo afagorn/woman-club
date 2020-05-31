@@ -6,6 +6,7 @@ use App\Models\Product\Product;
 use App\Models\User\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Order
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $products_id Json cast
  * @property string $type
  * @property int $cost
+ * @property string $hash
  * @property string $status
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
@@ -42,7 +44,7 @@ class Order extends Model
     const TYPE_SUB_NEW = 'sub_new';
     const TYPE_SUB_RENEWAL = 'sub_renewal';
 
-    protected $fillable = ['customer_id', 'type', 'cost', 'status', 'products_id'];
+    protected $fillable = ['customer_id', 'type', 'cost', 'status', 'products_id', 'hash'];
 
     protected $casts = ['products_id' => 'array'];
 
@@ -53,6 +55,7 @@ class Order extends Model
             'products_id' => $productsId,
             'type' => $type,
             'cost' => $cost,
+            'hash' => Str::random(32),
             'status' => $status
         ]);
     }

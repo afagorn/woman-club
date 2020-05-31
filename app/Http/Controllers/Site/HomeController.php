@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -14,10 +17,24 @@ class HomeController extends Controller
 
     /**
      * Страница благодарности после успешной оплаты
-     * @return \Illuminate\View\View
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|View
      */
-    public function successPayment(Request $request, $id)
+    public function successPayment(Request $request)
     {
-        return view('site.successPayment');
+        $validator = \Validator::make($requestData = $request->all(), [
+            'orderHash' => 'required'
+        ]);
+
+        if($validator->fails())
+            return response('Wrong GET arguments', 400);
+
+        $order = Order::where([
+            'hash' => $requestData['orderHash'],
+            //'id' => $requestData['orderHash'],
+            'status' => Order::STATUS_PAID
+        ])->first();
+
+        return view('site.successPayment', compact('order'));
     }
 }

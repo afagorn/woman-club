@@ -38,7 +38,9 @@ class YandexPaymentService
      */
     public function handleSuccessPayment(array $dataRequest)
     {
-        $this->checkHash($dataRequest['sha1_hash']);
+        if(!$this->checkHash($dataRequest))
+            throw new \InvalidArgumentException('Wrong hash');
+
         $dataLabel = json_decode($dataRequest['label']);// {"orderId":1}
 
         if(!isset($dataLabel->orderId) || !is_numeric($dataLabel->orderId))
@@ -51,10 +53,21 @@ class YandexPaymentService
     }
 
     /**
-     * @param string $hash
+     * @param array $requestData
+     * @return bool
      */
-    private function checkHash(string $hash)
+    private function checkHash(array $requestData)
     {
-        //TODO Реализовать проверку хеша!
+        $currentHash = bin2hex(sha1($requestData['notification_type'] . '&'
+            . $requestData['operation_id'] . '&'
+            . $requestData['amount'] . '&'
+            . $requestData['currency'] . '&'
+            . $requestData['datetime'] . '&'
+            . $requestData['sender'] . '&'
+            . $requestData['codepro'] . '&'
+            . env('YANDEX_MONEY_SECRET')
+            . $requestData['label']));
+
+        return $currentHash == $requestData['sha1_hash'];
     }
 }
