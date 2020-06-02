@@ -8,11 +8,7 @@ use App\Models\TgBotInvite;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         //$this->middleware('auth');
@@ -20,6 +16,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('site.payment.successPayment');
+        return view('admin.dashboard');
     }
 }

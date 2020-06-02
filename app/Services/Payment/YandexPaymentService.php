@@ -5,8 +5,6 @@ namespace App\Services\Payment;
 use App\Models\Order;
 use App\Services\OrderService;
 use App\Services\User\CustomerService;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class YandexPaymentService
 {

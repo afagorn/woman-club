@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route::post('/api/order/create', 'API\OrderController@create');
-//Route::post('/api/payment/yandex-notification', 'API\PaymentController@yandexNotification');
-
 //API
 Route::group([
     'prefix' => 'api',
@@ -48,8 +45,6 @@ Route::group([
 });
 
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group([
     //'middleware' => 'auth'

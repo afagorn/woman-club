@@ -14,9 +14,9 @@ const mix = require('laravel-mix');
 mix
     .setPublicPath('public/build')
     .setResourceRoot('build')
-    //.js('resources/assets/admin/js/app.admin.js', 'js')
+    .js('resources/assets/admin/js/app.admin.js', 'js')
     .js('resources/assets/site/js/app.site.js', 'js')
-    //.sass('resources/assets/admin/sass/app.admin.scss', 'css')
+    .sass('resources/assets/admin/sass/app.admin.scss', 'css')
     .sass('resources/assets/site/sass/app.site.scss', 'css')
     .version()
     .browserSync('127.0.0.1:8080')

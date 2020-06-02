@@ -1,7 +1,7 @@
 <div class="wrapper ">
-    @include('layouts.navbars.sidebar')
+    @include('admin.layouts.navbars.sidebar')
     <div class="main-panel">
-        @include('layouts.navbars.navs.auth')
+        @include('admin.layouts.navbars.navs.auth')
 
         <div class="content">
             <div class="container">
@@ -15,6 +15,6 @@
             </div>
         </div>
 
-        @include('layouts.footers.auth')
+        @include('admin.layouts.footers.auth')
     </div>
 </div>

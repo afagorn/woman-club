@@ -29,10 +29,7 @@ class OrderController extends Controller
      * @param OrderService $service
      * @param CustomerService $customerService
      */
-    public function __construct(
-        OrderService $service,
-        CustomerService $customerService
-    )
+    public function __construct(OrderService $service, CustomerService $customerService)
     {
         $this->service = $service;
         $this->customerService = $customerService;
@@ -47,7 +44,7 @@ class OrderController extends Controller
 
     public function create()
     {
-        $products = Product::all(['id','slug', 'name']);
+        $products = Product::all(['id', 'slug', 'name']);
 
         return view('admin.order.create', compact('products'));
     }

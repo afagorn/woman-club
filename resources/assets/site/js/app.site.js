@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function(){
             inputLabel.value = JSON.stringify(labelJson);
             payForm.querySelector('input[name="targets"]').value = 'Заказ ' + data.id + '';
             payForm.querySelector('input[name="sum"]').value = data.cost;
-            payForm.querySelector('input[name="successURL"]').value = '/success-payment?secret=XAEA12';
+            payForm.querySelector('input[name="successURL"]').value = '/success-payment?orderHash=' + data.hash;
 
             payForm.submit();
         });

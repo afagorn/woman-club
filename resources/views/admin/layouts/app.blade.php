@@ -20,11 +20,11 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            @include('layouts.page_templates.auth')
+            @include('admin.layouts.page_templates.auth')
         @endauth
         @guest()
-            @include('layouts.page_templates.auth')
-            {{--@include('layouts.page_templates.guest')--}}
+            @include('admin.layouts.page_templates.auth')
+            {{--@include('admin.layouts.page_templates.guest')--}}
         @endguest
 
         <script src="{{mix('js/app.admin.js', 'build')}}"></script>

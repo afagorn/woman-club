@@ -5,16 +5,29 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Services\Payment\YandexPaymentService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PaymentController extends Controller
 {
+    /**
+     * @var YandexPaymentService
+     */
     protected $yandexService;
 
+    /**
+     * PaymentController constructor.
+     * @param YandexPaymentService $yandexService
+     */
     public function __construct(YandexPaymentService $yandexService)
     {
         $this->yandexService = $yandexService;
     }
 
+    /**
+     * Уведомления Я.Денег об успешной оплате
+     * @param Request $request
+     * @return Response
+     */
     public function yandexNotification(Request $request)
     {
         $validator = \Validator::make($requestData = $request->all(), [

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Http\API\SendpulseAPI;
 use App\Models\DTO\User\CustomerDTO;
 use App\Models\Order;
 use App\Models\Product\Product;
@@ -21,11 +22,16 @@ class OrderService
     private $tgBotInviteService;
 
     /**
+     * @var SendpulseAPI
+     */
+    private $sendpulseAPI;
+
+    /**
      * OrderService constructor.
      * @param TgBotInviteService $tgBotInviteService
      * @param CustomerService $customerService
      */
-    public function __construct(TgBotInviteService $tgBotInviteService, CustomerService $customerService)
+    public function __construct(TgBotInviteService $tgBotInviteService, CustomerService $customerService, SendpulseAPI $sendpulseAPI)
     {
         $this->tgBotInviteService = $tgBotInviteService;
         $this->customerService = $customerService;
@@ -73,16 +79,10 @@ class OrderService
             ->first();
         $order->doStatusPaid();
 
-        //Пока бот не используется
-        $invite = $this->tgBotInviteService->create($orderId);
+        $invite = $this->tgBotInviteService->create($orderId);//Пока бот не используется
 
-        //TODO Отправка письма с инвайт линкой на канал
-        /*if(!is_null($order->customer->user->email))
-            mail($order->customer, $order->products);*/
-
-        //Отправка письма с инвайтом на бота
-        /*if(!is_null($order->customer->user->email))
-            mail($order->customer, $invite->getInviteLink());*/
+        if(!is_null($order->customer->user->email))
+            $this->sendpulseAPI->getApi()->addEmails(env('SENDPULSE_ADDRESSBOOK_ID'), [$order->customer->user->email]);
 
         return $order;
     }

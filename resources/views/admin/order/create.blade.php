@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \Illuminate\Support\MessageBag $errors
- * @var \App\Models\Product[] $products
+ * @var \App\Models\Product\Product[] $products
  */
 ?>
 @extends('layouts.app', ['activePage' => 'orderCreate', 'titlePage' => 'Создание заказа'])
