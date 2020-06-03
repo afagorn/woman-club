@@ -33,7 +33,7 @@ class Product extends Model
 {
     protected $table = 'products';
 
-    protected $fillable = ['slug', 'name', 'description', 'cost'];
+    protected $fillable = ['slug', 'name', 'description', 'cost', 'invite_link'];
 
     public function resolveRouteBinding($value, $field = null)
     {
@@ -44,14 +44,16 @@ class Product extends Model
      * @param string $name
      * @param string $description
      * @param int $cost
+     * @param string $inviteLink
      * @param string|null $slug
      * @return static
      */
-    public static function new(string $name, string $description, int $cost, string $slug = null): self {
+    public static function new(string $name, string $description, int $cost, string $inviteLink, string $slug = null): self {
         return static::create([
             'name' => $name,
             'description' => $description,
             'cost' => $cost,
+            'invite_link' => $inviteLink,
             'slug' => is_null($slug) ? \Str::slug($name) : $slug
         ]);
     }

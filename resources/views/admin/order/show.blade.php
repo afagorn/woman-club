@@ -4,7 +4,7 @@
  * @var \App\Models\Order $order
  */
 ?>
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'orderShow', 'titlePage' => __('Просмотр заказа')])
+@extends('admin.layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'orderShow', 'titlePage' => __('Просмотр заказа')])
 @section('content')
   <div class="card">
     <div class="card-header card-header-primary">
@@ -20,14 +20,6 @@
         <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Email покупателя</span>
           <span class="list-description__unit list-description__unit_value">{{$order->customer->user->email}}</span>
-        </li>
-        <li class="list__item list-description__item">
-          <span class="list-description__unit list-description__unit_key">Дата отписки</span>
-          <span class="list-description__unit list-description__unit_value">{{$order->customer->unsubscribeDateToText()}}</span>
-        </li>
-        <li class="list__item list-description__item">
-          <span class="list-description__unit list-description__unit_key">Телеграм ссылка</span>
-          <span class="list-description__unit list-description__unit_value">{{$order->tgInviteLink->link}}</span>
         </li>
         <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Стоимость</span>

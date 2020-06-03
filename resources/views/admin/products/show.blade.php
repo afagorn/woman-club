@@ -6,7 +6,7 @@ use App\Models\Product\Product;
  * @var Product $product
  */
 ?>
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'products', 'titlePage' => __('Просмотр продукта')])
+@extends('admin.layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'products', 'titlePage' => __('Просмотр продукта')])
 @section('content')
   <div class="card">
     <div class="card-header card-header-primary">

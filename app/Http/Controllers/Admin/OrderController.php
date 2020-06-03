@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Order\CreateRequest;
-use App\Models\DTO\User\CustomerDTO;
-use App\Models\DTO\User\UserDTO;
+use App\Http\Requests\Admin\Order\CreateAdminRequest;
 use App\Models\Order;
 use App\Models\Product\Product;
 use App\Services\OrderService;
-use App\Services\User\CustomerService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -20,24 +17,17 @@ class OrderController extends Controller
     private $service;
 
     /**
-     * @var CustomerService
-     */
-    private $customerService;
-
-    /**
      * OrderController constructor.
      * @param OrderService $service
-     * @param CustomerService $customerService
      */
-    public function __construct(OrderService $service, CustomerService $customerService)
+    public function __construct(OrderService $service)
     {
         $this->service = $service;
-        $this->customerService = $customerService;
     }
 
     public function index()
     {
-        $orders = Order::with(['customer.user', 'tgInviteLink'])->get();
+        $orders = Order::with(['customer.user'])->get();
 
         return view('admin.order.index', compact('orders'));
     }
@@ -49,22 +39,9 @@ class OrderController extends Controller
         return view('admin.order.create', compact('products'));
     }
 
-    public function store(CreateRequest $request)
+    public function store(CreateAdminRequest $request)
     {
-        $order = $this->service->checkout(
-            $request['productId'],
-            $this->customerService->create(
-                new CustomerDTO(
-                    new UserDTO(
-                        $request['email'],
-                        $request['name']
-                    )
-                )
-            ),
-            $request['status']
-        );
-
-        if (!$order)
+        if (!$order = $this->service->create($request))
             flash('Произошла ошибка при создании заказа :( Пните разработчика, чтобы он все починил')->error();
         else
             flash('Заказ успешно создан')->success();

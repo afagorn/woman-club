@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', function(){
         API.tokenCSRF = '';
     })();*/
 
-    function createOrder(email, productsId, token, callback) {
+    function createOrder(email, name, productsId, token, callback) {
         let data = new FormData();
         data.append('email', email);
-        data.append('productsId', productsId);
+        data.append('name', name);
+        data.append('products_id', productsId);
 
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/order/create');
@@ -46,17 +47,17 @@ document.addEventListener('DOMContentLoaded', function(){
         event.preventDefault();
         let payForm = payButtonSubmit.parentElement,
             email = payForm.querySelector('input[name="email"]').value,
-            productsId = payForm.querySelector('input[name="productsId"]').value,
+            name = payForm.querySelector('input[name="name"]').value,
+            productsId = payForm.querySelector('input[name="products_id"]').value,
             token = payForm.querySelector('input[name="_token"]').value;
 
-        createOrder(email, productsId, token, response => {
+        createOrder(email, name, productsId, token, response => {
             let data = JSON.parse(response),
                 inputLabel = payForm.querySelector('input[name="label"]'),
                 labelJson = {'orderId': data.id};
             inputLabel.value = JSON.stringify(labelJson);
             payForm.querySelector('input[name="targets"]').value = 'Заказ ' + data.id + '';
             payForm.querySelector('input[name="sum"]').value = data.cost;
-            payForm.querySelector('input[name="successURL"]').value = '/success-payment?orderHash=' + data.hash;
 
             payForm.submit();
         });
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function(){
         payButton.addEventListener('click', evt => {
             let currentProductsId = JSON.parse(payButton.getAttribute('data-productsId'));
 
-            payModalForm.querySelector('input[name="productsId"]')
+            payModalForm.querySelector('input[name="products_id"]')
                 .value = JSON.stringify(currentProductsId);
         });
     }

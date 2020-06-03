@@ -77,8 +77,8 @@
     <input type="hidden" name="need-email" value="false">
     <input type="hidden" name="need-phone" value="false">
     <input type="hidden" name="need-address" value="false">
-    <input type="hidden" name="productsId" value="[1,2]">
-    <input type="hidden" name="successURL" value="/success-payment">
+    <input type="hidden" name="products_id" value="[1,2]">
+    <input type="hidden" name="successURL" value="http://englishimprovers.online/#popup:successPayment">
     <div class="form-group">
       <label class="col-form-label">Имя</label>
       <input type="text" name="name">

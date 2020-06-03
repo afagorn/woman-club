@@ -5,7 +5,7 @@
  */
 ?>
 
-@extends('layouts.app', ['activePage' => 'customer', 'titlePage' => __('Редактирование покупателя')])
+@extends('admin.layouts.app', ['activePage' => 'customer', 'titlePage' => __('Редактирование покупателя')])
 @section('content')
   <form action="{{route('admin.customer.update', $customer->id)}}" method="POST">
     @csrf

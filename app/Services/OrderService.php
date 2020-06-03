@@ -2,12 +2,16 @@
 namespace App\Services;
 
 use App\Http\API\SendpulseAPI;
+use App\Http\Requests\Admin\Order\CreateAdminRequest;
+use App\Http\Requests\Admin\Order\CreateRequest;
 use App\Models\DTO\User\CustomerDTO;
+use App\Models\DTO\User\UserDTO;
 use App\Models\Order;
 use App\Models\Product\Product;
 use App\Models\User\Customer;
 use App\Services\User\CustomerService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 
 class OrderService
 {
@@ -35,40 +39,44 @@ class OrderService
     {
         $this->tgBotInviteService = $tgBotInviteService;
         $this->customerService = $customerService;
+        $this->sendpulseAPI = $sendpulseAPI;
     }
 
     /**
-     * Создание нового заказа
-     * Сумма заказа считается по переданным продуктам и также отправляется письмо если указан email
-     * @param Customer $customer
-     * @param array $productsId
-     * @param string $type
-     * @param string $status
+     * Создание заказа
+     * Создаваться может из админки и со стороны клиента
+     * @param FormRequest|CreateRequest|CreateAdminRequest $request Разные правила валидации для админки и для клиента
      * @return Order
      */
-    public function create(Customer $customer, array $productsId, string $type = Order::TYPE_SUB_NEW, $status = Order::STATUS_NOT_PAID): Order
+    public function create(FormRequest $request): Order
     {
+        $customer = $this->customerService->create(new CustomerDTO(
+            new UserDTO($request['email'], $request['name'])
+        ));
+
+        if(!is_array($productsId = $request['products_id']))
+            $productsId = json_decode($request['products_id'], true);
+
         $products = Product::whereIn('id', $productsId)->get();
         if(is_null($products) || empty($products))
             throw new \InvalidArgumentException('Wrong products id');
 
         $sumCostOrder = 0;
-        foreach ($products as $product) {
+        foreach ($products as $product)
             $sumCostOrder += (int) $product->cost;
-        }
-
 
         return Order::new(
             $customer->id,
             $productsId,
-            $type,
+            Order::TYPE_SUB_NEW,
             $sumCostOrder,
-            $status
+            $request['status'] ?? Order::STATUS_NOT_PAID
         );
     }
 
     /**
      * Обработка оплаченного заказа
+     * Меняем статус заказа на оплачено и отправляем письмо через сендпульс
      * @param int $orderId
      * @return Order|Model|null
      */
@@ -82,7 +90,15 @@ class OrderService
         $invite = $this->tgBotInviteService->create($orderId);//Пока бот не используется
 
         if(!is_null($order->customer->user->email))
-            $this->sendpulseAPI->getApi()->addEmails(env('SENDPULSE_ADDRESSBOOK_ID'), [$order->customer->user->email]);
+            $this->sendpulseAPI->getApi()->addEmails(
+                env('SENDPULSE_ADDRESSBOOK_ID'),
+                [
+                    'emails' => [$order->customer->user->email],
+                    'variables' => [
+                        'name' => $order->customer->user->name ?? ''
+                    ]
+                ]
+            );
 
         return $order;
     }

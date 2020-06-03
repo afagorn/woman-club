@@ -1,10 +1,9 @@
 <?php
 namespace App\Http\Requests\Admin\Order;
 
-use App\Rules\Slug;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class CreateAdminRequest extends FormRequest
 {
     public function rules()
     {
@@ -12,6 +11,7 @@ class CreateRequest extends FormRequest
             'email' => 'required|string|max:64',
             'name' => 'string|max:64',
             'products_id' => 'required|array|min:1',
+            'status' => 'required|string|max:32',
         ];
     }
 }

@@ -13,6 +13,7 @@ class ProductService
             $request['name'],
             $request['description'],
             $request['cost'],
+            $request['invite_link'],
             $request['slug']
         );
     }

@@ -5,7 +5,7 @@
  */
 ?>
 
-@extends('layouts.app', ['activePage' => 'products', 'titlePage' => __('Редактирование продукта')])
+@extends('admin.layouts.app', ['activePage' => 'products', 'titlePage' => __('Редактирование продукта')])
 @section('content')
   <form action="{{route('admin.products.update', $product->slug)}}" method="POST">
     @csrf

@@ -4,7 +4,7 @@
  */
 ?>
 
-@extends('layouts.app', [
+@extends('admin.layouts.app', [
     'activePage' => 'orderList',
     'titlePage' => 'Просмотр заказов',
     'containerFluid' => true
@@ -20,8 +20,7 @@
             <tr>
               <th>ID</th>
               <th>Покупатель</th>
-              <th>Дата отписки</th>
-              <th>Инвайт линк</th>
+              <th>Продукты</th>
               <th>Стоимость</th>
               <th>Статус</th>
               <th>Создан</th>
@@ -36,8 +35,13 @@
                 <td>
                   <a href="{{route('admin.customer.show', $order->customer->id)}}">{{!is_null($order->customer->user->name) ? $order->customer->user->name : 'Без имени'}}</a>
                 </td>
-                <td>{{$order->customer->unsubscribeDateToText()}}</td>
-                <td>{{$order->tgInviteLink->link}}</td>
+                <td>
+                  <ul class="list_clear">
+                    @foreach($order->products as $product)
+                      <li><a href="{{route('admin.products.show', $product->slug)}}">{{$product->name}}</a></li>
+                    @endforeach
+                  </ul>
+                </td>
                 <td>{{$order->cost}}</td>
                 <td>{{$order->statusToText()}}</td>
                 <td>{{$order->created_at}}</td>

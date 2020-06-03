@@ -4,7 +4,7 @@
  */
 ?>
 
-@extends('layouts.app', ['activePage' => 'productsCreate', 'titlePage' => 'Создание продукта'])
+@extends('admin.layouts.app', ['activePage' => 'productsCreate', 'titlePage' => 'Создание продукта'])
 
 @section('content')
   <form method="POST" action="{{ route('admin.products.store') }}">
@@ -13,7 +13,6 @@
       <div class="card-header card-header-primary">
         <h4 class="card-title">Создание нового продукта</h4>
       </div>
-
 
       <div class="card-body">
         <div class="form-group">
@@ -30,16 +29,20 @@
         </div>
 
         <div class="form-group">
+          <label for="invite_link" class="col-form-label">{{__('validation.attributes.inviteLink')}}</label>
+          <input id="invite_link" type="text" class="form-control" name="invite_link" placeholder="Заполняется автоматически, если оставить пустым" value="{{old('invite_link')}}">
+          @if($errors->has('invite_link'))<span class="error text-danger">{{$errors->first('invite_link')}}</span>@endif
+        </div>
+
+        <div class="form-group">
           <label for="description" class="col-form-label">{{__('validation.attributes.description')}}</label>
-          <textarea id="description" type="text" class="form-control" name="description"
-                    placeholder="Описание продукта">{{old('description')}}</textarea>
+          <textarea id="description" type="text" class="form-control" name="description" placeholder="Описание продукта">{{old('description')}}</textarea>
           @if($errors->has('description'))<span class="error text-danger">{{$errors->first('description')}}</span>@endif
         </div>
 
         <div class="form-group">
           <label for="cost" class="col-form-label">{{__('validation.attributes.cost')}}</label>
-          <input id="cost" type="text" class="form-control" name="cost" placeholder="Целое число"
-                 value="{{old('cost')}}">
+          <input id="cost" type="text" class="form-control" name="cost" placeholder="Целое число" value="{{old('cost')}}">
           @if($errors->has('cost'))<span class="error text-danger">{{$errors->first('cost')}}</span>@endif
         </div>
 

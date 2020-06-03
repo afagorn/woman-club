@@ -12,6 +12,7 @@ class CreateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:2048',
             'cost' => 'required|integer',
+            'invite_link' => 'required|string',
             'slug' => ['unique:products,slug', new Slug()]
         ];
     }

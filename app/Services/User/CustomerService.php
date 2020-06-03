@@ -4,6 +4,7 @@ namespace App\Services\User;
 use App\Models\DTO\User\CustomerDTO;
 use App\Models\TgBotInvite;
 use App\Models\User\Customer;
+use App\Models\User\User;
 use Illuminate\Database\Query\Builder;
 
 class CustomerService
@@ -11,12 +12,12 @@ class CustomerService
     public function create(CustomerDTO $DTO)
     {
         if(!is_null($email = $DTO->userDTO->email)) {
-            $customer = Customer::with(['user' => function($q) use($email) {
+            $customerRows = Customer::whereHas('user', function($q) use($email) {
                 $q->where('email', '=', $email);
-            }])->first();
+            })->get();
 
-            if(!is_null($customer))
-                return $customer;
+            if(!$customerRows->isEmpty())
+                return $customerRows[0];
         }
 
         return Customer::new($DTO);

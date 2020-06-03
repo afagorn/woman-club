@@ -3,7 +3,7 @@
  * @var \Illuminate\Support\MessageBag $errors
  */
 ?>
-@extends('layouts.app', ['activePage' => 'customerCreate', 'titlePage' => 'Создание покупателя'])
+@extends('admin.layouts.app', ['activePage' => 'customerCreate', 'titlePage' => 'Создание покупателя'])
 
 @section('content')
   <form method="POST" action="{{ route('admin.customer.store') }}">

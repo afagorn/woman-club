@@ -7,7 +7,7 @@ use App\Models\Product\Product;
  */
 ?>
 
-@extends('layouts.app', [
+@extends('admin.layouts.app', [
     'activePage' => 'productsList',
     'titlePage' => 'Просмотр продуктов',
     'containerFluid' => true
@@ -25,6 +25,7 @@ use App\Models\Product\Product;
               <th>Алиас</th>
               <th>Имя</th>
               <th>Описание</th>
+              <th>Инвайт-ссылка</th>
               <th>Стоимость</th>
               <th>Создан</th>
               <th>Обновлен</th>
@@ -38,6 +39,7 @@ use App\Models\Product\Product;
                 <td>{{$product->slug}}</td>
                 <td>{{$product->name}}</td>
                 <td>{{$product->description}}</td>
+                <td>{{$product->invite_link}}</td>
                 <td>{{$product->cost}}</td>
                 <td>{{$product->created_at}}</td>
                 <td>{{$product->updated_at}}</td>
@@ -54,8 +56,7 @@ use App\Models\Product\Product;
                         style="display: inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button rel="tooltip" type="submit" class="btn btn-danger js-confirm-delete"
-                            data-original-title="Удалить" title="Удалить"><i class="material-icons">close</i></button>
+                    <button rel="tooltip" type="submit" class="btn btn-danger js-confirm-delete" data-original-title="Удалить" title="Удалить"><i class="material-icons">close</i></button>
                   </form>
                 </td>
               </tr>

@@ -4,7 +4,7 @@
  */
 ?>
 
-@extends('layouts.app', [
+@extends('admin.layouts.app', [
     'activePage' => 'customerList',
     'titlePage' => 'Просмотр покупателей',
     'containerFluid' => true

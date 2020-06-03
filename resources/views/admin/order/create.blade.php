@@ -4,7 +4,7 @@
  * @var \App\Models\Product\Product[] $products
  */
 ?>
-@extends('layouts.app', ['activePage' => 'orderCreate', 'titlePage' => 'Создание заказа'])
+@extends('admin.layouts.app', ['activePage' => 'orderCreate', 'titlePage' => 'Создание заказа'])
 
 @section('content')
   @if($errors)
@@ -34,12 +34,11 @@
         </div>
 
         <div class="form-group">
-          <label for="product">Продукт</label>
-          <select class="form-control" data-style="btn btn-link" id="product" name="productId" required>
-            <option disabled value="">Не выбрано</option>
-          @foreach($products as $product)
-            <option value="{{$product->id}}">{{$product->name}}</option>
-          @endforeach
+          <label for="productsId">Продукт</label>
+          <select multiple="multiple" class="form-control" data-style="btn btn-link" id="productsId" name="products_id[]" required>
+            @foreach($products as $product)
+              <option value="{{$product->id}}">{{$product->name}}</option>
+            @endforeach
           </select>
         </div>
 

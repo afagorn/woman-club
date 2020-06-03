@@ -6,7 +6,7 @@ use App\Models\Product\Product;
  * @var \App\Models\User\Customer $customer
  */
 ?>
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'customer', 'titlePage' => __('Просмотр продукта')])
+@extends('admin.layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'customer', 'titlePage' => __('Просмотр продукта')])
 @section('content')
   <div class="row">
     <div class="card">
