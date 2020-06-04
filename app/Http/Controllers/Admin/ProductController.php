@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\CreateRequest;
 use App\Http\Requests\Admin\Products\EditRequest;
-use App\Models\Order;
 use App\Models\Product\Product;
-use App\Models\User\User;
 use App\Services\Products\ProductService;
 use Illuminate\Http\Request;
 

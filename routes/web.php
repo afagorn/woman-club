@@ -31,6 +31,7 @@ Route::group([
 
 //Админка
 Route::group([
+    'middleware' => 'auth',
     'prefix' => 'admin',
     'as' => 'admin.',
     'namespace' => 'Admin'
@@ -44,10 +45,14 @@ Route::group([
     Route::resource('customer', 'User\CustomerController');
 });
 
-Auth::routes();
+//auth Admin
+//Auth::routes();
+Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('admin/login', 'Auth\LoginController@login');
+Route::post('admin/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group([
-    //'middleware' => 'auth'
+    'middleware' => 'auth'
     ], function () {
 	Route::get('table-list', function () {
 		return view('pages.table_list');
