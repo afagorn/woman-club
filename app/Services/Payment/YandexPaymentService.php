@@ -36,15 +36,15 @@ class YandexPaymentService
      */
     public function handleSuccessPayment(array $dataRequest)
     {
-        if(!$this->checkHash($dataRequest))
-            throw new \InvalidArgumentException('Wrong hash');
+        /*if(!$this->checkHash($dataRequest))
+            throw new \InvalidArgumentException('Wrong hash');*/
 
         $dataLabel = json_decode($dataRequest['label']);// {"orderId":1}
 
         if(!isset($dataLabel->orderId) || !is_numeric($dataLabel->orderId))
             throw new \InvalidArgumentException('Wrong order id');
 
-        if(!Order::isEqualCost($dataLabel->orderId, (int) $dataRequest['amount']))
+        if(!Order::isEqualCost($dataLabel->orderId, (int) $dataRequest['withdraw_amount']))
             throw new \RuntimeException('Invalid order amount');
 
         $this->orderService->handlePaidOrder($dataLabel->orderId);

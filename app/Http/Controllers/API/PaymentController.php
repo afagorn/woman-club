@@ -30,10 +30,20 @@ class PaymentController extends Controller
      */
     public function yandexNotification(Request $request)
     {
+        \Log::info('Dump yandex request', [
+            'request' => print_r($request->all(), true)
+        ]);
+
         $validator = \Validator::make($requestData = $request->all(), [
             'sha1_hash' => 'required',
             'amount' => 'required',
-            'label' => 'required'
+            'label' => 'required',
+            'notification_type' => 'required',
+            'operation_id' => 'required',
+            'currency' => 'required',
+            'datetime' => 'required',
+            'sender' => 'required',
+            'codepro' => 'required'
         ]);
 
         if($validator->fails())

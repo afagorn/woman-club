@@ -34,6 +34,7 @@ class OrderService
      * OrderService constructor.
      * @param TgBotInviteService $tgBotInviteService
      * @param CustomerService $customerService
+     * @param SendpulseAPI $sendpulseAPI
      */
     public function __construct(TgBotInviteService $tgBotInviteService, CustomerService $customerService, SendpulseAPI $sendpulseAPI)
     {
@@ -91,11 +92,13 @@ class OrderService
 
         if(!is_null($order->customer->user->email))
             $this->sendpulseAPI->getApi()->addEmails(
-                env('SENDPULSE_ADDRESSBOOK_ID'),
+                $this->sendpulseAPI->getPaymentAddressBookId(),
                 [
-                    'emails' => [$order->customer->user->email],
-                    'variables' => [
-                        'name' => $order->customer->user->name ?? ''
+                    [
+                        'email' => $order->customer->user->email,
+                        'variables' => [
+                            'name' => $order->customer->user->name
+                        ]
                     ]
                 ]
             );

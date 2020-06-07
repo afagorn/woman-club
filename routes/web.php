@@ -13,6 +13,8 @@ Route::group([
 
     //Уведомления яндекса об оплате
     Route::post('/payment/yandex-notification', 'PaymentController@yandexNotification');
+
+    Route::post('/mailing/guide', 'MailingController@guide');
 });
 
 //Site
