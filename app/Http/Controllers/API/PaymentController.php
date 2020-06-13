@@ -42,7 +42,7 @@ class PaymentController extends Controller
             'operation_id' => 'required',
             'currency' => 'required',
             'datetime' => 'required',
-            'sender' => 'required',
+            'sender' => 'nullable',
             'codepro' => 'required'
         ]);
 

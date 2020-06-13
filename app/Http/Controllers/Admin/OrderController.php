@@ -54,37 +54,25 @@ class OrderController extends Controller
         return view('admin.order.show', compact('order'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Order $order)
     {
-        //
+        return view('admin.order.edit', compact('order'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Order $order)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Order $order)
     {
-        //
+        try {
+            $order->delete();
+        } catch (\Exception $exception) {
+            flash($exception->getMessage())->error();
+            return back();
+        }
+
+        return redirect(route('admin.order.index'));
     }
 }
