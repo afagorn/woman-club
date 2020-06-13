@@ -22,6 +22,7 @@
               <th>Покупатель</th>
               <th>Продукты</th>
               <th>Стоимость</th>
+              <th>Промокод</th>
               <th>Статус</th>
               <th>Создан</th>
               <th>Обновлен</th>
@@ -43,6 +44,7 @@
                   </ul>
                 </td>
                 <td>{{$order->cost}}</td>
+                <td>{{$order->promocodeToText()}}</td>
                 <td>{{$order->statusToText()}}</td>
                 <td>{{$order->created_at}}</td>
                 <td>{{$order->updated_at}}</td>

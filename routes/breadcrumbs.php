@@ -24,7 +24,10 @@ Breadcrumbs::macro('resource', function ($name, $title, $site = 'site', $slug = 
     Breadcrumbs::register($name.'.show', function (Crumbs $crubms, $model) use ($name, $title, $slug) {
         $crubms->parent($name.'.index');
 
-        $crubms->push((!is_null($model->name) ? $model->name : 'Без имени'), route($name.'.show', ($slug ? $model->slug : $model->id)));
+        $crubms->push(
+            (!is_null($model->name) ? $model->name : 'Без имени'),
+            route($name.'.show', ($slug ? $model->slug : $model->id))
+        );
     });
 
     Breadcrumbs::register($name.'.edit', function (Crumbs $crubms, $model) use ($name, $title, $slug) {
@@ -44,5 +47,6 @@ Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {
 });
 
 Breadcrumbs::resource('products', 'Продукты', 'admin', true);
-    Breadcrumbs::resource('order', 'Заказы', 'admin');
+Breadcrumbs::resource('order', 'Заказы', 'admin');
+Breadcrumbs::resource('promocode', 'Промокоды', 'admin');
 Breadcrumbs::resource('customer', 'Покупатели', 'admin');

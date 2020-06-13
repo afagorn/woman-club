@@ -85,14 +85,15 @@ class CustomerController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+            $customer->delete();
+        } catch (\Exception $exception) {
+            flash($exception->getMessage())->error();
+            return back();
+        }
+
+        return redirect(route('admin.customer.index'));
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Product\Product;
 use App\Models\User\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
@@ -17,11 +18,13 @@ use Illuminate\Support\Str;
  * @property string $type
  * @property int $cost
  * @property string $hash
+ * @property string $promocode_id
  * @property string $status
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property Customer $customer
  * @property Product[] $products
+ * @property Promocode $promocode
  * @method static Builder|\App\Models\Order newModelQuery()
  * @method static Builder|\App\Models\Order newQuery()
  * @method static Builder|\App\Models\Order query()
@@ -35,6 +38,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereProductsId($value)
  */
 class Order extends Model
 {
@@ -82,6 +87,27 @@ class Order extends Model
         return $order->cost === $cost;
     }
 
+    public function getSumProducts()
+    {
+        $sum = 0;
+        foreach ($this->products as $product)
+            $sum += $product->cost;
+        return $sum;
+    }
+
+    public function promocodeToText()
+    {
+        return !is_null($this->promocode) ? $this->promocode->name . ' (' . $this->promocode->discount . '%)' : '---';
+    }
+
+    public function productsToText()
+    {
+        $str = '';
+        foreach($this->products as $product)
+             $str .= $product->name . ' (' . $product->cost . '); ';
+        return substr($str, 0, -2);
+    }
+
     /********** relations ***********/
 
     public function customer()
@@ -92,5 +118,10 @@ class Order extends Model
     public function getProductsAttribute()
     {
         return Product::findMany($this->products_id);
+    }
+
+    public function promocode()
+    {
+        return $this->belongsTo(Promocode::class, 'promocode_id');
     }
 }

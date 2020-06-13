@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\ProductTelegramChannel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\ProductTelegramChannel query()
  * @mixin \Eloquent
+ * @property-read \App\Models\Product\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\ProductTelegramChannel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\ProductTelegramChannel whereInviteLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\ProductTelegramChannel whereProductId($value)
  */
 class ProductTelegramChannel extends Model
 {

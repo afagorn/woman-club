@@ -88,6 +88,30 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#sidebarPromocodes">
+          <i class="material-icons">list</i>
+          <p>Промокоды <b class="caret"></b></p>
+        </a>
+        <div class="collapse {{$activePage == 'promocodeList' ? 'show' : ''}}" id="sidebarPromocodes">
+          <ul class="nav">
+            <li class="nav-item {{$activePage == 'promocodeList' ? 'active' : ''}}">
+              <a class="nav-link" href="{{route('admin.promocode.index')}}">
+                <i class="material-icons">visibility</i>
+                <span class="sidebar-normal">Посмотреть все</span>
+              </a>
+            </li>
+            <li class="nav-item {{$activePage == 'promocodeCreate' ? 'active' : ''}}">
+              <a class="nav-link" href="{{route('admin.promocode.create')}}">
+                <i class="material-icons">add_circle</i>
+                <span class="sidebar-normal">Создать новый</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#sidebarCustomers">
           <i class="material-icons">list</i>
           <p>Покупатели <b class="caret"></b></p>

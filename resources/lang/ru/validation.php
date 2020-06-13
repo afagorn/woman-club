@@ -156,6 +156,9 @@ return [
         'password' => 'Пароль',
         'tgUsername' => 'Никнейм телеграм',
         'unsubscribeDate' => 'Дата прекращения подписки',
-        'inviteLink' => 'Инвайт-ссылка'
+        'inviteLink' => 'Инвайт-ссылка',
+        'discount' => 'Скидка',
+        'expirationDate' => 'Дата истечения',
+        'status' => 'Статус'
     ],
 ];

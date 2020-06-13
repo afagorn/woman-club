@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Product whereSlug($value)
  * @method static Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product\Product whereInviteLink($value)
  */
 class Product extends Model
 {

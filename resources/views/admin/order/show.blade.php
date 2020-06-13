@@ -22,8 +22,16 @@
           <span class="list-description__unit list-description__unit_value">{{$order->customer->user->email}}</span>
         </li>
         <li class="list__item list-description__item">
+          <span class="list-description__unit list-description__unit_key">Продукты</span>
+          <span class="list-description__unit list-description__unit_value">{{$order->productsToText()}}</span>
+        </li>
+        <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Стоимость</span>
           <span class="list-description__unit list-description__unit_value">{{$order->cost}}</span>
+        </li>
+        <li class="list__item list-description__item">
+          <span class="list-description__unit list-description__unit_key">Промокод</span>
+          <span class="list-description__unit list-description__unit_value">{{$order->promocodeToText()}}</span>
         </li>
         <li class="list__item list-description__item">
           <span class="list-description__unit list-description__unit_key">Статус</span>

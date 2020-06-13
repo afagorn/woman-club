@@ -45,6 +45,8 @@ Route::group([
     Route::resource('order', 'OrderController');
 
     Route::resource('customer', 'User\CustomerController');
+
+    Route::resource('promocode', 'PromocodeController');
 });
 
 //auth Admin

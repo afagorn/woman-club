@@ -17,7 +17,7 @@
     <div class="card">
       <div class="card-header card-header-primary">
         <h4 class="card-title">Создание нового заказа</h4>
-        <p class="card-category">Инвайт ссылка будет автоматически сгенерирована и отправлена по email</p>
+        {{--<p class="card-category">Инвайт ссылка будет автоматически сгенерирована и отправлена по email</p>--}}
       </div>
 
       <div class="card-body">
