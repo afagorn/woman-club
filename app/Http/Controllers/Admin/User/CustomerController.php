@@ -33,6 +33,11 @@ class CustomerController extends Controller
         return view('admin.user.customer.create');
     }
 
+    /**
+     * @param CreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
     public function store(CreateRequest $request)
     {
         $customer = $this->service->create(

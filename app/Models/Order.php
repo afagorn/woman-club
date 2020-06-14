@@ -49,17 +49,18 @@ class Order extends Model
     const TYPE_SUB_NEW = 'sub_new';
     const TYPE_SUB_RENEWAL = 'sub_renewal';
 
-    protected $fillable = ['customer_id', 'type', 'cost', 'status', 'products_id', 'hash'];
+    protected $fillable = ['customer_id', 'type', 'cost', 'promocode_id', 'status', 'products_id', 'hash'];
 
     protected $casts = ['products_id' => 'array'];
 
-    public static function new(int $customerId, array $productsId, string $type, int $cost, string $status): self
+    public static function new(int $customerId, array $productsId, string $type, int $cost, string $status, int $promocodeId): self
     {
         return static::create([
             'customer_id' => $customerId,
             'products_id' => $productsId,
             'type' => $type,
             'cost' => $cost,
+            'promocode_id' => $promocodeId,
             'hash' => Str::random(32),
             'status' => $status
         ]);

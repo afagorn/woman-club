@@ -19,7 +19,7 @@ class OrdersTableSeeder extends Seeder
             //Если 1, то создаем промокод и считаем цену с промокодом. Иначе просто сумма всех продуктов
             if(rand(0, 1)) {
                 $promocode = $promocodes[rand(0,1)];
-                $order->cost = round($order->getSumProducts() * $promocode->discount / 100);
+                $order->cost = round($order->getSumProducts() - ($order->getSumProducts() * $promocode->discount / 100));
                 $order->promocode_id = $promocode->id;
             }
             else

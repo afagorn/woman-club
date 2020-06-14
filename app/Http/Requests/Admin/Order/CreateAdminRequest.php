@@ -12,6 +12,7 @@ class CreateAdminRequest extends FormRequest
             'name' => 'string|max:64',
             'products_id' => 'required|array|min:1',
             'status' => 'required|string|max:32',
+            'promocode' => 'nullable|string|max:64'
         ];
     }
 }

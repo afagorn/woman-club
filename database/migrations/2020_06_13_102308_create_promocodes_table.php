@@ -17,7 +17,7 @@ class CreatePromocodesTable extends Migration
             $table->id();
             $table->string('name', 128);
             $table->integer('discount')->unsigned();
-            $table->date('expiration_at');
+            $table->timestamp('expiration_at');
             $table->string('status', '32');
             $table->timestamps();
         });

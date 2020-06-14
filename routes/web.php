@@ -15,6 +15,8 @@ Route::group([
     Route::post('/payment/yandex-notification', 'PaymentController@yandexNotification');
 
     Route::post('/mailing/guide', 'MailingController@guide');
+
+    Route::post('/promocode/check', 'PromocodeController@check');
 });
 
 //Site

@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/api/payment/yandex-notification',
-        '/api/order/create'
+        '/api/order/create',
+        '/api/promocode/check'
     ];
 }

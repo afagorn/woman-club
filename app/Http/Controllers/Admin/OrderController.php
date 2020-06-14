@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\CreateAdminRequest;
 use App\Models\Order;
 use App\Models\Product\Product;
+use App\Repositories\Interfaces\IPromocodeRepository;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,19 @@ class OrderController extends Controller
     private $service;
 
     /**
+     * @var IPromocodeRepository
+     */
+    private $promocodeRepository;
+
+    /**
      * OrderController constructor.
      * @param OrderService $service
+     * @param IPromocodeRepository $promocodeRepository
      */
-    public function __construct(OrderService $service)
+    public function __construct(OrderService $service, IPromocodeRepository $promocodeRepository)
     {
         $this->service = $service;
+        $this->promocodeRepository = $promocodeRepository;
     }
 
     public function index()
@@ -35,13 +43,14 @@ class OrderController extends Controller
     public function create()
     {
         $products = Product::all(['id', 'slug', 'name']);
+        $promocodes = $this->promocodeRepository->findValidAll();
 
-        return view('admin.order.create', compact('products'));
+        return view('admin.order.create', compact('products', 'promocodes'));
     }
 
     public function store(CreateAdminRequest $request)
     {
-        if (!$order = $this->service->create($request))
+        if (!$order = $this->service->createAdmin($request))
             flash('Произошла ошибка при создании заказа :( Пните разработчика, чтобы он все починил')->error();
         else
             flash('Заказ успешно создан')->success();
