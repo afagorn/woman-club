@@ -53,7 +53,7 @@ class Order extends Model
 
     protected $casts = ['products_id' => 'array'];
 
-    public static function new(int $customerId, array $productsId, string $type, int $cost, string $status, int $promocodeId): self
+    public static function new(int $customerId, array $productsId, string $type, int $cost, string $status, $promocodeId = null): self
     {
         return static::create([
             'customer_id' => $customerId,

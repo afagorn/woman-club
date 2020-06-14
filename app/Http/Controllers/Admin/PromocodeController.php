@@ -50,14 +50,25 @@ class PromocodeController extends Controller
         return view('admin.promocode.show', compact('promocode'));
     }
 
-    public function edit($id)
+    public function edit(Promocode $promocode)
     {
-        //
+        return view('admin.promocode.edit', compact('promocode'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Promocode $promocode)
     {
-        //
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:64',
+            'discount' => 'required|integer|min:1|max:100',
+            'expirationDate' => 'required|date',
+            'status' => 'required|string'
+        ]);
+        $requestData = $validator->validated();
+
+        if($promocode->update($requestData))
+            flash('Продукт успешно сохранен')->success();
+
+        return redirect(route('admin.promocode.show', $promocode->id));
     }
 
     public function destroy(Promocode $promocode)

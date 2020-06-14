@@ -28,10 +28,10 @@ use App\Models\Product\Product;
             <span class="list-description__unit list-description__unit_key">Телеграм username</span>
             <span class="list-description__unit list-description__unit_value">{{$customer->tg_username}}</span>
           </li>
-          <li class="list__item list-description__item">
+          {{--<li class="list__item list-description__item">
             <span class="list-description__unit list-description__unit_key">Дата прекращения подписки</span>
             <span class="list-description__unit list-description__unit_value">{{$customer->unsubscribe_at}}</span>
-          </li>
+          </li>--}}
         </ul>
       </div>
       <div class="card-footer" style="justify-content: flex-start">
@@ -54,7 +54,9 @@ use App\Models\Product\Product;
           <thead>
             <tr>
               <th>ID</th>
-              <th>Инвайт линк</th>
+              <th>Продукты</th>
+              <th>Стоимость</th>
+              <th>Промокод</th>
               <th>Статус</th>
               <th>Создан</th>
               <th>Обновлен</th>
@@ -64,7 +66,15 @@ use App\Models\Product\Product;
           @foreach($customer->orders as $order)
             <tr>
               <td>{{$order->id}}</td>
-              <td>{{$order->tgInviteLink->link}}</td>
+              <td>
+                <ul class="list_clear">
+                  @foreach($order->products as $product)
+                    <li><a href="{{route('admin.products.show', $product->slug)}}">{{$product->name}}</a></li>
+                  @endforeach
+                </ul>
+              </td>
+              <td>{{$order->cost}}</td>
+              <td>{{$order->promocodeToText()}}</td>
               <td>{{$order->statusToText()}}</td>
               <td>{{$order->created_at}}</td>
               <td>{{$order->updated_at}}</td>

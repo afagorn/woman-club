@@ -25,10 +25,9 @@ class PromocodeController extends Controller
      */
     public function check(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
-            'name' => 'required|string|max:64'
-        ]);
-        $requestData = $validator->validated();
+        \Validator::make($requestData = $request->all(), [
+            'name' => 'required|max:64'
+        ])->validate();
 
         $jsonData = ['valid' => false, 'discount' => null];
         if(!is_null($promocode = $this->repository->getValidByName($requestData['name'])))
